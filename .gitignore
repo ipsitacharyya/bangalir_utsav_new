@@ -1,0 +1,22 @@
+# Private secrets and API keys
+.streamlit/secrets.toml
+.env
+
+# Python cache and temporary files
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# PyCharm internal settings
+.idea/
+
+# Local database fallback files
+data/site_state.json
+recommendation_log.xlsx
+recommendation_log.csv
