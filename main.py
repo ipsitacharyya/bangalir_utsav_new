@@ -215,7 +215,7 @@ f"""<style>
 .hero-actions{{display:flex;gap:12px;flex-wrap:wrap}}
 .hero-btn{{display:inline-block;padding:12px 22px;border-radius:999px;border:1px solid #efc77f;text-decoration:none;color:#fff8e9!important;background:rgba(116,21,34,.82);font:600 .84rem 'Noto Serif Bengali',serif}}
 .hero-btn.primary{{background:#f1c56f;color:#5e101a!important;border-color:#f1c56f}}
-.hero-count{{justify-self:end;align-self:end;width:min(100%,310px);padding:26px 20px;text-align:center;border:1px solid rgba(239,199,127,.8);border-radius:20px;background:linear-gradient(145deg,rgba(83,12,22,.82),rgba(55,7,14,.72));box-shadow:inset 0 0 0 1px rgba(255,235,185,.08),0 15px 30px rgba(45,6,12,.24);margin-bottom:-1px}}
+.hero-count{{justify-self:end;align-self:end;width:min(100%,310px);padding:26px 20px;text-align:center;border:1px solid rgba(239,199,127,.8);border-radius:20px;background:linear-gradient(145deg,rgba(83,12,22,.82),rgba(55,7,14,.72));box-shadow:inset 0 0 0 1px rgba(255,235,185,.08),0 15px 30px rgba(45,6,12,.24);margin-bottom:8px}}
 .hero-count .small{{font:600 .72rem 'Cinzel',serif;letter-spacing:2px;color:#e9c47d}}
 .hero-count .main{{font:700 clamp(3rem,6vw,5rem)/1 'Noto Serif Bengali',serif;color:#fff8e9;margin:10px 0 4px}}
 .hero-count .date{{font:500 .8rem 'Noto Serif Bengali',serif;color:#f2d7bb}}
@@ -224,10 +224,14 @@ f"""<style>
 .puja-wrap{{padding:18px 8px 8px;text-align:center;background:rgba(255,250,240,.58);border-bottom:1px solid rgba(180,122,52,.25)}}
 .puja-counter{{display:flex;justify-content:center;gap:7px;align-items:center;font:500 .88rem 'Noto Serif Bengali',serif;color:#6b302d}}
 .puja-counter strong{{font-size:1.15rem;color:var(--red)}}
-[class*="st-key-push_bell_container"]{{width:100%!important;display:flex!important;justify-content:center!important;align-items:center!important;margin:2px auto!important}}
-[class*="st-key-push_bell_container"] [data-testid="stButton"]{{width:48px!important;margin:auto!important}}
-[class*="st-key-push_bell_container"] [data-testid="stButton"]>button{{width:48px!important;height:48px!important;padding:0!important;border:0!important;background-color:transparent!important;background-image:url("{ASSET['push_bell']}")!important;background-clip:padding-box!important;background-repeat:no-repeat!important;background-position:center!important;background-size:36px 36px!important;box-shadow:none!important;font-size:0!important;color:transparent!important;text-indent:-9999px!important}}
-[class*="st-key-push_bell_container"] [data-testid="stButton"]>button:hover{{transform:scale(1.12);background:transparent!important}}
+[class*="st-key-push_bell_container"]{{width:100%!important;display:block!important;margin:2px auto!important;height:112px!important;text-align:center!important}}
+[class*="st-key-pushpanjali_btn"]{{width:100px!important;height:110px!important;margin:0 auto!important;padding:0!important;display:block!important}}
+[class*="st-key-pushpanjali_btn"] [data-testid="stButton"]{{width:100px!important;height:110px!important;margin:0 auto!important;padding:0!important;display:block!important}}
+[class*="st-key-pushpanjali_btn"] [data-testid="stButton"]>button,
+[class*="st-key-pushpanjali_btn"] [data-testid="stButton"]>button:hover,
+[class*="st-key-pushpanjali_btn"] [data-testid="stButton"]>button:focus,
+[class*="st-key-pushpanjali_btn"] [data-testid="stButton"]>button:active{{position:relative!important;width:100px!important;height:110px!important;min-height:110px!important;background:transparent!important;color:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0 auto!important;outline:none!important;display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important}}
+[class*="st-key-pushpanjali_btn"] [data-testid="stButton"]>button::before{{content:""!important;display:block!important;width:86px!important;height:98px!important;background-image:url("{ASSET["push_bell"]}")!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;pointer-events:none!important;flex:0 0 auto!important}}
 [class*="st-key-v2_loc"]{{margin-top:14px!important}}
 .push-text{{font:500 .72rem 'Cinzel',serif;letter-spacing:1.4px;color:#86645b}}
 
@@ -260,27 +264,67 @@ f"""<style>
 .ai-box:after{{content:"♫";position:absolute;right:18px;top:12px;color:#8d1828;font-size:3.5rem;opacity:.18}}
 
 /* playlist image strip */
-.playlist-strip{{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:16px}}
+.playlist-strip{{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:16px;margin-bottom:14px}}
 .playlist-tile{{background:#fffaf0;border:1px solid rgba(180,122,52,.38);border-radius:14px;overflow:hidden;box-shadow:0 6px 14px rgba(73,25,27,.07)}}
 .playlist-tile img{{width:100%;aspect-ratio:1;object-fit:cover;display:block}}
 .playlist-tile .pname{{padding:9px 8px 10px;text-align:center;font:600 .76rem 'Noto Serif Bengali',serif;color:var(--ink);line-height:1.35}}
 
 /* form controls */
-div[data-testid="stTextInput"] div[data-baseweb="input"],div[data-testid="stTextArea"] div[data-baseweb="textarea"],div[data-baseweb="input"],div[data-baseweb="textarea"]{{background:rgba(255,250,240,.82)!important;border:1px solid rgba(180,122,52,.42)!important;box-shadow:none!important;border-radius:10px!important}}
-div[data-testid="stTextInput"] input,div[data-testid="stTextArea"] textarea,input,textarea{{background:transparent!important;color:#4b171b!important;border:none!important;box-shadow:none!important;font-family:'Noto Serif Bengali',serif!important}}
-div[data-baseweb="select"]>div{{background:linear-gradient(180deg,#741522,#5d0f19)!important;border:1px solid #d4a45c!important;border-radius:10px!important;color:#fff!important}}
-div[data-baseweb="select"]>div,div[data-baseweb="select"]>div *{{color:#fff!important;-webkit-text-fill-color:#fff!important}}
-div[data-baseweb="select"] [data-testid="stMarkdownContainer"],div[data-baseweb="select"] span,div[data-baseweb="select"] input{{color:#fff!important;-webkit-text-fill-color:#fff!important}}
-ul[data-baseweb="menu"]{{background:#5d0f19!important;border:1px solid #d4a45c!important}}
-ul[data-baseweb="menu"] li{{color:#fff!important;background:#5d0f19!important}}
+div[data-testid="stTextInput"] label,div[data-testid="stTextInput"] label p,div[data-testid="stTextArea"] label,div[data-testid="stTextArea"] label p,div[data-testid="stSelectbox"] label,div[data-testid="stSelectbox"] label p{{color:#8d1828!important;-webkit-text-fill-color:#8d1828!important;font-family:'Noto Serif Bengali',serif!important}}
+div[data-testid="stTextInput"] div[data-baseweb="input"],div[data-testid="stTextArea"] div[data-baseweb="textarea"],div[data-baseweb="input"],div[data-baseweb="textarea"]{{background:#24232d!important;border:1px solid rgba(180,122,52,.42)!important;box-shadow:none!important;border-radius:10px!important}}
+div[data-testid="stTextInput"] input,div[data-testid="stTextArea"] textarea,input,textarea{{background:transparent!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border:none!important;box-shadow:none!important;font-family:'Noto Serif Bengali',serif!important;caret-color:#fff!important}}
+div[data-testid="stTextInput"] input::placeholder,div[data-testid="stTextArea"] textarea::placeholder,input::placeholder,textarea::placeholder{{color:#cfc9d0!important;-webkit-text-fill-color:#cfc9d0!important;opacity:1!important}}
+div[data-baseweb="select"]>div{{background:#24232d!important;border:1px solid rgba(180,122,52,.42)!important;border-radius:10px!important;color:#fff!important}}
+div[data-baseweb="select"]>div,div[data-baseweb="select"]>div *,div[data-baseweb="select"] [data-testid="stMarkdownContainer"],div[data-baseweb="select"] span,div[data-baseweb="select"] input,div[data-baseweb="select"] [role="combobox"],div[data-baseweb="select"] [role="combobox"] *{{color:#fff!important;-webkit-text-fill-color:#fff!important;caret-color:#fff!important}}
+ul[data-baseweb="menu"]{{background:#24232d!important;border:1px solid #d4a45c!important}}
+ul[data-baseweb="menu"] li{{color:#fff!important;background:#24232d!important}}
 ul[data-baseweb="menu"] li:hover,ul[data-baseweb="menu"] li[aria-selected="true"]{{color:#fff!important;background:#741522!important}}
-[data-baseweb="popover"] [role="option"],[data-baseweb="popover"] [role="option"] *,div[data-baseweb="select"] input,div[data-baseweb="select"] [role="combobox"],div[data-baseweb="select"] [role="combobox"] *{{color:#fff!important;-webkit-text-fill-color:#fff!important;caret-color:#fff!important}}
+[data-baseweb="popover"] [role="option"],[data-baseweb="popover"] [role="option"] *{{color:#fff!important;-webkit-text-fill-color:#fff!important}}
 
 div[data-testid="stButton"]>button{{border-radius:999px!important;min-height:42px!important;border:1px solid #b47a34!important;background:var(--red)!important;color:#fff7e8!important;font-family:'Noto Serif Bengali',serif!important;box-shadow:0 6px 14px rgba(116,21,34,.16)!important}}
 div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-color:#d4a45c!important}}
-[class*="st-key-push_bell_container"] [data-testid="stButton"]>button,
-[class*="st-key-push_bell_container"] [data-testid="stButton"]>button:hover,
-[class*="st-key-push_bell_container"] [data-testid="stButton"]>button:focus{{background:transparent url("{ASSET['push_bell']}") center/36px 36px no-repeat!important;border:0!important;box-shadow:none!important;color:transparent!important}}
+
+/* Pushpanjali: target the real button directly. The PNG is the button face. */
+[class*="st-key-pushpanjali_btn"]{{
+  width:110px!important;
+  height:118px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  display:block!important;
+}}
+[class*="st-key-pushpanjali_btn"] button,
+[class*="st-key-pushpanjali_btn"] button:hover,
+[class*="st-key-pushpanjali_btn"] button:focus,
+[class*="st-key-pushpanjali_btn"] button:active{{
+  width:110px!important;
+  height:118px!important;
+  min-height:118px!important;
+  margin:0 auto!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background-color:transparent!important;
+  background-image:url("{ASSET["push_bell"]}")!important;
+  background-repeat:no-repeat!important;
+  background-position:center center!important;
+  background-size:96px 110px!important;
+  box-shadow:none!important;
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  font-size:0!important;
+  line-height:0!important;
+  text-indent:-9999px!important;
+  outline:none!important;
+  cursor:pointer!important;
+  display:block!important;
+  opacity:1!important;
+}}
+[class*="st-key-pushpanjali_btn"] button > div,
+[class*="st-key-pushpanjali_btn"] button > span,
+[class*="st-key-pushpanjali_btn"] button p{{
+  display:none!important;
+}}
+
 
 /* four equal feature cards */
 .feature-cards{{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
@@ -312,7 +356,7 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
 /* client-side player tabs: only the selected player is visible, with no Streamlit rerun */
 [class*="st-key-client_player_songs"],[class*="st-key-client_player_tv"],[class*="st-key-client_player_radio"],[class*="st-key-client_player_sounds"]{{display:none}}
 .client-player-visible{{display:block!important}}
-.playlist-display{{position:relative;background:#f8f0df;border:7px solid #741522;border-radius:18px;min-height:52px;margin:8px 0 10px;padding:10px 18px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 20px rgba(76,17,25,.12);overflow:hidden}}
+.playlist-display{{position:relative;background:#f8f0df;border:7px solid #741522;border-radius:18px;min-height:52px;margin:8px 0 20px;padding:10px 18px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 20px rgba(76,17,25,.12);overflow:hidden}}
 .playlist-display:before{{content:"";position:absolute;inset:5px;background-image:url("{ALPANA_URI}");background-size:150px;background-repeat:no-repeat;background-position:left center;opacity:.28;pointer-events:none}}
 .playlist-display .playlist-display-text{{position:relative;z-index:1;font:600 .72rem 'Cinzel',serif;letter-spacing:1.6px;color:#8d1828;text-transform:uppercase}}
 
@@ -351,6 +395,69 @@ unsafe_allow_html=True,
 # -----------------------------------------------------------------------------
 # Live popup
 # -----------------------------------------------------------------------------
+st.markdown("""<style>
+.global-puja-popup{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);z-index:100000;min-width:min(420px,88vw);max-width:min(560px,90vw);padding:22px 26px 18px;border:1px solid #d4a45c;border-radius:18px;background:linear-gradient(145deg,rgba(116,21,34,.97),rgba(84,10,22,.97));box-shadow:0 22px 60px rgba(45,6,12,.45),inset 0 0 0 1px rgba(255,235,185,.08);text-align:center;color:#fff8e9;pointer-events:none;animation:pujaPopupInOut 3s ease-in-out forwards}
+.global-puja-popup .flower{display:block;font-size:2rem;line-height:1;margin-bottom:8px}
+.global-puja-popup .popup-title{font:700 1.15rem/1.5 'Noto Serif Bengali',serif;color:#fff8e9}
+.global-puja-popup .popup-sub{margin-top:7px;font:600 .62rem 'Cinzel',serif;letter-spacing:1.5px;color:#e8c17b}
+@keyframes pujaPopupInOut{0%{opacity:0;transform:translate(-50%,-50%) scale(.92)}12%{opacity:1;transform:translate(-50%,-50%) scale(1)}78%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.98)}}
+</style>""", unsafe_allow_html=True)
+
+# Dedicated popup for the two under-development links only.
+st.markdown("""<style>
+.underdev-puja-popup{
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(.96);
+    z-index:100001;
+    min-width:min(420px,88vw);
+    max-width:min(560px,90vw);
+    padding:22px 26px 18px;
+    border:1px solid #d4a45c;
+    border-radius:18px;
+    background:linear-gradient(145deg,rgba(116,21,34,.97),rgba(84,10,22,.97));
+    box-shadow:0 22px 60px rgba(45,6,12,.45),inset 0 0 0 1px rgba(255,235,185,.08);
+    text-align:center;
+    color:#fff8e9;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+.underdev-puja-popup.show{
+    visibility:visible;
+    pointer-events:auto;
+    animation:underDevPopupInOut 3s ease-in-out forwards;
+}
+.underdev-puja-popup .flower{
+    display:block;
+    font-size:2rem;
+    line-height:1;
+    margin-bottom:8px;
+}
+.underdev-puja-popup .popup-title{
+    font:700 1.15rem/1.6 'Noto Serif Bengali',serif;
+    color:#fff8e9;
+}
+.underdev-puja-popup .popup-sub{
+    margin-top:7px;
+    font:600 .62rem 'Cinzel',serif;
+    letter-spacing:1.5px;
+    color:#e8c17b;
+}
+@keyframes underDevPopupInOut{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.92)}
+    12%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    78%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    100%{opacity:0;transform:translate(-50%,-50%) scale(.98)}
+}
+</style>
+<div id="underdev-puja-popup" class="underdev-puja-popup" role="alert" aria-live="polite">
+    <span class="flower">🌸</span>
+    <div class="popup-title">এই সেকশনটি এখনও তৈরি হচ্ছে। খুব শীঘ্রই এটি উপলব্ধ হবে।<br><strong>শুভ শারদীয়া 🌺</strong></div>
+    <div class="popup-sub">BANGALIR UTSAV · LIVE PUJA MOMENT</div>
+</div>""", unsafe_allow_html=True)
+
 def _render_global_popup():
     if st.session_state.get("popup_message"):
         kind = st.session_state.get("popup_kind")
@@ -399,7 +506,7 @@ st.markdown(
             <a class="{'active' if st.session_state.active_section=='Pujo TV' else ''}" target="_self" rel="nofollow" href="?section=tv#tv-player">পুজো TV</a>
             <a class="{'active' if st.session_state.active_section=='Live Radio' else ''}" target="_self" rel="nofollow" href="?section=radio#radio-player">লাইভ রেডিও</a>
             <a class="{'active' if st.session_state.active_section=='Puja Sound' else ''}" target="_self" rel="nofollow" href="?section=sounds#sounds-player">পুজোর সাউন্ড</a>
-            <a href="?panel=gallery#gallery">কমিউনিটি</a>
+            <a href="#" data-underdev="community">কমিউনিটি</a>
         </nav>
     </div>""",
     unsafe_allow_html=True,
@@ -434,7 +541,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 with st.container(key="push_bell_container"):
-    if st.button(" ", key="pushpanjali_btn", help="Offer Pushpanjali"):
+    if st.button(" ", key="pushpanjali_btn", help="Offer Pushpanjali", icon=None, type="tertiary", width=100):
         try:
             st.session_state.pushpanjali_count = increment_pushpanjali()
             st.session_state.persistence_error = None
@@ -444,6 +551,7 @@ with st.container(key="push_bell_container"):
             st.session_state.persistence_error = str(exc)
             st.session_state.popup_message = "পুষ্পাঞ্জলি সংরক্ষণ করা যায়নি"
             st.session_state.popup_kind = "error"
+        st.rerun()
 _render_global_popup()
 st.markdown('<div class="puja-wrap" style="padding-top:0"><div class="push-text">পুষ্পাঞ্জলি প্রদান করুন এবং পবিত্র ঘণ্টা বাজান</div></div>', unsafe_allow_html=True)
 
@@ -556,10 +664,10 @@ with req_col:
             st.warning("অন্তত গানের নামটি লিখুন।")
 
 # -----------------------------------------------------------------------------
-# Equal four-card row — including the second Mahalaya countdown
+# Four feature cards — Pujo Song, Pujo TV, Live Radio and Puja Sound
 # -----------------------------------------------------------------------------
-countdown_card = f"""<div class="feature-card countdown-card"><div class="icon">✦</div><div class="gold">মহালয়া পর্ব</div><div class="section-desc" style="color:#f0d5b9;text-align:center">মহালয়া আসতে বাকি</div><div class="big">আর {countdown_days} দিন</div><div class="gold">১০ অক্টোবর ২০২৬ · মহালয়া</div><div style="margin-top:18px;color:#f4dcbf;font:500 .78rem 'Noto Serif Bengali',serif">শুভ মহালয়া</div></div>"""
 card_specs = [
+    ("🎵", "পুজোর গান", "নির্বাচিত বাংলা পুজোর গান ও playlist — vintage music player-এ শুনুন।", ASSET["featured"], "?section=songs#songs-player"),
     ("📺", "পুজো TV", "লাইভ পুজো, সাংস্কৃতিক অনুষ্ঠান, রেডিও ভিজ্যুয়াল ও বিশেষ অনুষ্ঠান।", ASSET["tv"], "?section=tv#tv-player"),
     ("📻", "লাইভ রেডিও", "সারা দিন পুজোর গান, আড্ডা, বিশেষ অনুষ্ঠান আর বাংলা রেডিও।", ASSET["radio"], "?section=radio#radio-player"),
     ("🔊", "পুজোর সাউন্ড", "ঢাক, কাঁসর, ঘণ্টা, মন্ত্র, আতশবাজি — পুজোর আবহ এক জায়গায়।", ASSET["sound"], "?section=sounds#sounds-player"),
@@ -567,7 +675,7 @@ card_specs = [
 card_html = []
 for icon, title, desc, uri, href in card_specs:
     card_html.append(f'<div class="feature-card"><div class="icon">{icon}</div><h3>{title}</h3><p>{desc}</p><img src="{uri}" alt="{title}"><a class="card-btn" target="_self" rel="nofollow" href="{href}">এখন দেখুন →</a></div>')
-st.markdown('<section class="page-section"><div class="section-head"><div><div class="kicker">Explore</div><div class="section-title">পুজোর চারটি সুর</div></div></div><div class="feature-cards">' + ''.join(card_html) + countdown_card + '</div></section>', unsafe_allow_html=True)
+st.markdown('<section class="page-section"><div class="section-head"><div><div class="kicker">Explore</div><div class="section-title">পুজোর চারটি সুর</div></div></div><div class="feature-cards">' + ''.join(card_html) + '</div></section>', unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # Community strip using the supplied community_puja image
@@ -603,7 +711,7 @@ def deck(playlist_id: str, title: str, component_key: str = "main_deck"):
 </style></head><body>
 <div class="console" id="console"><div class="grain"></div><div class="vinyl" id="vinyl"><div class="vinyl-label">PUJA</div><div class="vinyl-title" id="vinylTitle">__TITLE__</div></div><div class="header"><span>● <span class="brand">BANGALIR UTSAV</span> · VINTAGE HI-FI CONSOLE</span><span class="model">MODEL 76 · WOODGRAIN STEREO</span></div><div class="stereo"><div class="speaker left"></div><div class="center"><div class="faceplate"><div class="display-row"><div class="meter"><div class="ticks"></div><div class="needle"></div></div><div class="screen"><div class="screen-title" id="title">__TITLE__</div><div class="screen-sub" id="sub">PLAYLIST · READY</div><div class="screen-time"><span id="current">00:00</span> / <span id="duration">--:--</span></div></div><div class="meter"><div class="ticks"></div><div class="needle"></div></div></div><div class="tuning"><div class="freq"><span>FM 88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div><div class="scale"></div><div class="tuning-needle"></div></div><div class="album"><div class="yt" id="yt-host"></div><div class="album-caption">DURGAPUJA · BENGALI MUSIC</div></div><div class="transport"><button class="physical" id="prev">⏮ REV</button><button class="physical" id="rewind">◀◀ 10</button><button class="physical play" id="play">▶ PLAY</button><button class="physical stop" id="stop">■ STOP</button><button class="physical" id="forward">10 ▶▶</button><button class="physical" id="next">FWD ⏭</button><button class="physical" id="mute">MUTE</button></div><div class="knob-bank"><div class="knob-wrap"><div class="knob" id="volDown"></div><div class="knob-label">VOL −</div></div><div class="knob-wrap"><div class="knob" id="volUp"></div><div class="knob-label">VOL +</div></div><div class="knob-wrap"><div class="knob" id="prevTrack"></div><div class="knob-label">TRACK ◀</div></div><div class="knob-wrap"><div class="knob" id="nextTrack"></div><div class="knob-label">TRACK ▶</div></div></div></div><div class="lower"><div class="brand-plate">ANALOGUE AUDIO · STEREO RECEIVER</div><div class="status" id="status">READY · PRESS PLAY</div><div class="power"><span class="lamp"></span><span id="powerText">STANDBY</span></div></div></div><div class="speaker right"></div></div></div>
 <script>
-const PLAYLIST_ID=__PLAYLIST__;let player=null,ready=false,apiReady=false;const $=id=>document.getElementById(id);const fmt=s=>{s=Math.max(0,Math.floor(s||0));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};function status(t){$('status').textContent=t}function sync(){if(!player||!ready)return;try{const d=player.getDuration()||0,c=player.getCurrentTime()||0,idx=player.getPlaylistIndex();$('current').textContent=fmt(c);$('duration').textContent=fmt(d);$('sub').textContent='PLAYLIST · TRACK '+(idx>=0?idx+1:'—')}catch(e){}}function playing(on){$('console').classList.toggle('playing',on);$('vinyl').classList.toggle('playing',on);$('powerText').textContent=on?'PLAYING':'STANDBY';$('play').textContent=on?'❚❚ PAUSE':'▶ PLAY';if(player){try{const d=player.getVideoData();if(d&&d.title)$('vinylTitle').textContent=d.title}catch(e){}}}function press(id){const b=$(id);if(!b)return;b.classList.add('pressed');setTimeout(()=>b.classList.remove('pressed'),130)}function onYTReady(){if(apiReady)return;apiReady=true;player=new YT.Player('yt-player',{height:'100%',width:'100%',playerVars:{controls:0,rel:0,playsinline:1,fs:0,modestbranding:1,iv_load_policy:3},events:{onReady:()=>{ready=true;player.cuePlaylist({listType:'playlist',list:PLAYLIST_ID,index:0});status('READY · FIRST TRACK QUEUED')},onStateChange:e=>{if(e.data===YT.PlayerState.PLAYING){playing(true);status('PLAYING · TRACK '+(player.getPlaylistIndex()+1))}else if(e.data===YT.PlayerState.PAUSED){playing(false);status('PAUSED · TRACK '+(player.getPlaylistIndex()+1))}else if(e.data===YT.PlayerState.ENDED){playing(false);status('TRACK COMPLETE')}sync()}}})}function boot(){const host=$('yt-host');if(host&&!$('yt-player')){const d=document.createElement('div');d.id='yt-player';host.appendChild(d)}if(window.YT&&window.YT.Player)onYTReady();else{window.onYouTubeIframeAPIReady=onYTReady;const tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';document.head.appendChild(tag)}}$('play').onclick=()=>{press('play');if(player)player.getPlayerState()===1?player.pauseVideo():player.playVideo()};$('stop').onclick=()=>{press('stop');if(player){player.pauseVideo();player.seekTo(0,true);status('STOPPED · 00:00');playing(false)}};$('rewind').onclick=()=>{press('rewind');if(player)player.seekTo(Math.max(0,player.getCurrentTime()-10),true)};$('forward').onclick=()=>{press('forward');if(player)player.seekTo(Math.max(0,player.getCurrentTime()+10),true)};$('prev').onclick=()=>{press('prev');if(player)player.previousVideo()};$('next').onclick=()=>{press('next');if(player)player.nextVideo()};$('prevTrack').onclick=()=>{press('prevTrack');if(player)player.previousVideo()};$('nextTrack').onclick=()=>{press('nextTrack');if(player)player.nextVideo()};$('volDown').onclick=()=>{press('volDown');if(player)player.setVolume(Math.max(0,player.getVolume()-10))};$('volUp').onclick=()=>{press('volUp');if(player)player.setVolume(Math.min(100,player.getVolume()+10))};$('mute').onclick=()=>{press('mute');if(player){const wasMuted=player.isMuted();wasMuted?player.unMute():player.mute();status(wasMuted?'SOUND ON':'MUTED')}};setInterval(sync,500);boot();
+const PLAYER_ID='songs',PLAYLIST_ID=__PLAYLIST__;let player=null,ready=false,apiReady=false;function notifyPlay(){window.parent.postMessage({source:'bangalir-utsav-player',type:'play',player:PLAYER_ID},'*')}function stopExternal(){if(player){try{player.pauseVideo()}catch(e){}playing(false);status('STOPPED · ANOTHER PLAYER ACTIVE')}}window.addEventListener('message',e=>{const d=e.data;if(d&&d.source==='bangalir-utsav-player'&&d.type==='stop'&&d.player!==PLAYER_ID)stopExternal()});const $=id=>document.getElementById(id);const fmt=s=>{s=Math.max(0,Math.floor(s||0));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};function status(t){$('status').textContent=t}function sync(){if(!player||!ready)return;try{const d=player.getDuration()||0,c=player.getCurrentTime()||0,idx=player.getPlaylistIndex();$('current').textContent=fmt(c);$('duration').textContent=fmt(d);$('sub').textContent='PLAYLIST · TRACK '+(idx>=0?idx+1:'—')}catch(e){}}function playing(on){$('console').classList.toggle('playing',on);$('vinyl').classList.toggle('playing',on);$('powerText').textContent=on?'PLAYING':'STANDBY';$('play').textContent=on?'❚❚ PAUSE':'▶ PLAY';if(player){try{const d=player.getVideoData();if(d&&d.title)$('vinylTitle').textContent=d.title}catch(e){}}}function press(id){const b=$(id);if(!b)return;b.classList.add('pressed');setTimeout(()=>b.classList.remove('pressed'),130)}function onYTReady(){if(apiReady)return;apiReady=true;player=new YT.Player('yt-player',{height:'100%',width:'100%',playerVars:{controls:0,rel:0,playsinline:1,fs:0,modestbranding:1,iv_load_policy:3},events:{onReady:()=>{ready=true;player.cuePlaylist({listType:'playlist',list:PLAYLIST_ID,index:0});status('READY · FIRST TRACK QUEUED')},onStateChange:e=>{if(e.data===YT.PlayerState.PLAYING){notifyPlay();playing(true);status('PLAYING · TRACK '+(player.getPlaylistIndex()+1))}else if(e.data===YT.PlayerState.PAUSED){playing(false);status('PAUSED · TRACK '+(player.getPlaylistIndex()+1))}else if(e.data===YT.PlayerState.ENDED){playing(false);status('TRACK COMPLETE')}sync()}}})}function boot(){const host=$('yt-host');if(host&&!$('yt-player')){const d=document.createElement('div');d.id='yt-player';host.appendChild(d)}if(window.YT&&window.YT.Player)onYTReady();else{window.onYouTubeIframeAPIReady=onYTReady;const tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';document.head.appendChild(tag)}}$('play').onclick=()=>{press('play');if(player){if(player.getPlayerState()===1)player.pauseVideo();else{notifyPlay();player.playVideo()}}};$('stop').onclick=()=>{press('stop');if(player){player.pauseVideo();player.seekTo(0,true);status('STOPPED · 00:00');playing(false)}};$('rewind').onclick=()=>{press('rewind');if(player)player.seekTo(Math.max(0,player.getCurrentTime()-10),true)};$('forward').onclick=()=>{press('forward');if(player)player.seekTo(Math.max(0,player.getCurrentTime()+10),true)};$('prev').onclick=()=>{press('prev');if(player)player.previousVideo()};$('next').onclick=()=>{press('next');if(player)player.nextVideo()};$('prevTrack').onclick=()=>{press('prevTrack');if(player)player.previousVideo()};$('nextTrack').onclick=()=>{press('nextTrack');if(player)player.nextVideo()};$('volDown').onclick=()=>{press('volDown');if(player)player.setVolume(Math.max(0,player.getVolume()-10))};$('volUp').onclick=()=>{press('volUp');if(player)player.setVolume(Math.min(100,player.getVolume()+10))};$('mute').onclick=()=>{press('mute');if(player){const wasMuted=player.isMuted();wasMuted?player.unMute():player.mute();status(wasMuted?'SOUND ON':'MUTED')}};setInterval(sync,500);boot();
 </script></body></html>'''
     html=html.replace('__PLAYLIST__',playlist_json).replace('__TITLE__',title_json)
     components.html(html, height=760, scrolling=False)
@@ -615,7 +723,7 @@ def radio_deck(stations: dict):
 *{box-sizing:border-box}html,body{margin:0;background:transparent}body{font-family:Arial,sans-serif;color:#fff}.radio-vinyl{position:absolute;top:9px;right:78px;width:52px;height:52px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#d6a15a 0 10%,#2b1710 11% 14%,#050505 15% 100%);border:2px solid #9a663b;box-shadow:0 4px 10px rgba(0,0,0,.65),inset 0 0 0 1px rgba(255,220,170,.18);z-index:15;transform-origin:50% 50%}.radio-vinyl:before{content:"";position:absolute;inset:6px;border-radius:50%;border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 0 0 8px rgba(255,255,255,.018)}.radio-vinyl:after{content:"";position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;background:#d9b06c;transform:translate(-50%,-50%)}.radio-vinyl.playing{animation:radioVinylSpin 5.5s linear infinite}@keyframes radioVinylSpin{to{transform:rotate(360deg)}}.radio-vinyl-title{position:absolute;inset:16px 6px 15px;display:flex;align-items:center;justify-content:center;text-align:center;color:#f2d19b;font:700 5px Georgia,serif;letter-spacing:.25px;text-transform:uppercase;overflow:hidden}.radio-vinyl-label{position:absolute;top:5px;left:0;right:0;text-align:center;color:#8e6a44;font:5px Georgia,serif;letter-spacing:.8px}.radio{position:relative;width:100%;max-width:1080px;margin:auto;padding:15px;border-radius:14px;background:linear-gradient(145deg,#3b2119,#17100d 40%,#090807);border:1px solid #a27a49;box-shadow:0 22px 55px rgba(0,0,0,.65),inset 0 1px rgba(255,240,205,.14);position:relative;overflow:hidden}.radio:before{content:"";position:absolute;inset:0;opacity:.13;background:repeating-linear-gradient(90deg,rgba(255,220,170,.08) 0 1px,transparent 1px 6px);pointer-events:none}.top{position:relative;display:flex;justify-content:space-between;color:#aa967f;font:600 10px Georgia,serif;letter-spacing:1.2px;padding-bottom:10px}.brand{color:#e0b46f}.radio-main{position:relative;display:grid;grid-template-columns:150px 1fr 145px;gap:12px;align-items:stretch}.speaker{min-height:205px;border:1px solid #72583a;border-radius:7px;background:repeating-linear-gradient(0deg,#0b0907 0 5px,#3a2a1c 6px 7px);box-shadow:inset 0 0 28px #000}.speaker-label{margin:82px 12px 0;padding:6px;text-align:center;border:1px solid #8b6b42;color:#c9a76d;font:600 9px Georgia,serif;letter-spacing:1px;background:#1b120c}.tuner{background:linear-gradient(#090807,#15100c);border:1px solid #5b452e;border-radius:7px;padding:12px;box-shadow:inset 0 0 28px #000}.channel{display:flex;justify-content:space-between;gap:8px;color:#f0c988;font:600 clamp(15px,2.4vw,21px) 'Noto Serif Bengali',Georgia,serif}.station{color:#a08c75;font:10px Arial,sans-serif;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dial{margin-top:17px;height:54px;border:1px solid #59442e;border-radius:5px;background:linear-gradient(#17100b,#0a0806);position:relative;overflow:hidden}.ticks{position:absolute;left:5%;right:5%;bottom:14px;height:22px;border-bottom:1px solid #9c713e;background:repeating-linear-gradient(90deg,transparent 0 7%,#8c6539 7.2% 7.5%,transparent 7.7% 10%)}.needle{position:absolute;top:6px;bottom:9px;width:2px;left:50%;background:#e9ae5d;box-shadow:0 0 9px #e9ae5d}.freq{position:absolute;left:6%;right:6%;top:6px;display:flex;justify-content:space-between;color:#9c794e;font:9px monospace}.radio-controls{display:flex;gap:6px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:12px}.key{height:31px;min-width:40px;padding:0 8px;border-radius:5px;border:1px solid #7f6544;background:linear-gradient(#4b4034,#17130f);color:#ddc39b;font:600 8px Georgia,serif;cursor:pointer}.key.play{min-width:57px;background:linear-gradient(#b87531,#5a2a13);color:#fff0d0}.station-select{width:100%;margin-top:11px;padding:9px;border-radius:5px;border:1px solid #765a39;background:#120d09;color:#e3c590;font:10px Georgia,serif}.knob{width:58px;height:58px;margin:auto;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d7c09c,#8d704b 32%,#3a2a1b 59%,#0d0b08 63%);border:2px solid #9e784b;box-shadow:0 4px 12px #000;position:relative}.knob:after{content:"";position:absolute;width:2px;height:16px;background:#251a10;left:50%;top:5px;transform:translateX(-50%)}.label{text-align:center;color:#98754d;font:8px Georgia,serif;letter-spacing:1px;margin-top:3px}.vu-line{height:4px;margin-top:13px;background:#2e2015;border-radius:9px;overflow:hidden}.vu-line i{display:block;width:35%;height:100%;background:linear-gradient(90deg,#8d5125,#e7ad5a);animation:level .9s ease-in-out infinite alternate}.status{text-align:center;color:#a99580;font:9px monospace;letter-spacing:.8px;min-height:14px;margin-top:8px}@keyframes level{from{width:22%}to{width:74%}}.onair{display:inline-block;color:#f2a15b;border:1px solid #774122;padding:2px 6px;border-radius:3px;font:600 8px monospace;letter-spacing:1px;margin-left:5px}.playing .onair{box-shadow:0 0 10px rgba(240,110,40,.4)}
 @media(max-width:700px){.radio{padding:9px;border-radius:10px}.top{font-size:8px}.radio-main{grid-template-columns:1fr}.speaker{display:none}.tuner{padding:10px}.dial{margin-top:11px;height:48px}.knob{width:46px;height:46px}.radio-controls{gap:4px}.key{min-width:34px;height:30px;font-size:8px;padding:0 6px}}@media(max-width:390px){.top{flex-direction:column;gap:3px}.radio{padding:8px}.key{min-width:32px}}
 </style></head><body><div class="radio" id="radio"><div class="radio-vinyl" id="radioVinyl"><div class="radio-vinyl-label">RADIO</div><div class="radio-vinyl-title" id="radioVinylTitle">PUJA RADIO</div></div><div class="top"><span>● <span class="brand">BANGALIR UTSAV</span> · LIVE RADIO</span><span>VINTAGE BROADCAST RECEIVER</span></div><div class="radio-main"><div class="speaker"><div class="speaker-label">BENGAL RADIO</div></div><div class="tuner"><div class="channel" id="channel">বাংলা রেডিও <span class="onair" id="onair">OFF AIR</span></div><div class="station" id="station">Select a station below</div><div class="dial"><div class="freq"><span>88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div><div class="ticks"></div><div class="needle"></div></div><select id="stationSelect" class="station-select"></select><div class="radio-controls"><button class="key" id="prev">◀ PREV</button><button class="key play" id="play">PLAY</button><button class="key" id="stop">STOP</button><button class="key" id="next">NEXT ▶</button><button class="key" id="mute">MUTE</button></div><div class="vu-line"><i></i></div><div class="status" id="status">READY · SELECT A CHANNEL</div></div><div><div class="knob"></div><div class="label">VOLUME</div><div style="height:18px"></div><div class="knob" style="width:45px;height:45px"></div><div class="label">TUNE</div></div></div><audio id="audio" preload="none" crossorigin="anonymous"></audio></div><script>
-const STATIONS=__STATIONS__;const sel=document.getElementById('stationSelect'),audio=document.getElementById('audio'),radio=document.getElementById('radio'),statusEl=document.getElementById('status'),onair=document.getElementById('onair'),playBtn=document.getElementById('play');let names=Object.keys(STATIONS),hls=null;names.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o)});function current(){return sel.value}function cleanup(){if(hls){hls.destroy();hls=null}audio.pause();audio.removeAttribute('src');audio.load()}function load(){cleanup();const n=current(),src=STATIONS[n];document.getElementById('station').textContent=n;statusEl.textContent='READY · '+n;onair.textContent='OFF AIR';playBtn.textContent='PLAY';if(!src)return;if(src.includes('.m3u8')){if(audio.canPlayType('application/vnd.apple.mpegurl')){audio.src=src}else if(window.Hls&&Hls.isSupported()){hls=new Hls({enableWorker:true,lowLatencyMode:true});hls.loadSource(src);hls.attachMedia(audio);hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal)statusEl.textContent='STREAM ERROR · HLS SOURCE UNAVAILABLE'})}else{statusEl.textContent='HLS NOT SUPPORTED IN THIS BROWSER'}}else{audio.src=src}}async function play(){try{if(!audio.src&&!hls)load();await audio.play();radio.classList.add('playing');document.getElementById('radioVinyl').classList.add('playing');document.getElementById('radioVinylTitle').textContent=current();onair.textContent='ON AIR';statusEl.textContent='PLAYING · '+current();playBtn.textContent='PAUSE'}catch(e){statusEl.textContent='STREAM UNAVAILABLE · CHECK THE LIVE SOURCE'}}function pause(){audio.pause();radio.classList.remove('playing');document.getElementById('radioVinyl').classList.remove('playing');onair.textContent='OFF AIR';statusEl.textContent='PAUSED · '+current();playBtn.textContent='PLAY'}sel.onchange=()=>load();playBtn.onclick=()=>audio.paused?play():pause();document.getElementById('stop').onclick=()=>{audio.pause();audio.currentTime=0;pause()};document.getElementById('mute').onclick=()=>{audio.muted=!audio.muted;document.getElementById('mute').textContent=audio.muted?'UNMUTE':'MUTE'};document.getElementById('prev').onclick=()=>{sel.selectedIndex=(sel.selectedIndex-1+names.length)%names.length;load()};document.getElementById('next').onclick=()=>{sel.selectedIndex=(sel.selectedIndex+1)%names.length;load()};audio.addEventListener('playing',()=>{radio.classList.add('playing');document.getElementById('radioVinyl').classList.add('playing');document.getElementById('radioVinylTitle').textContent=current();onair.textContent='ON AIR';playBtn.textContent='PAUSE'});audio.addEventListener('pause',()=>{if(!audio.ended)pause()});audio.addEventListener('error',()=>{radio.classList.remove('playing');document.getElementById('radioVinyl').classList.remove('playing');onair.textContent='OFF AIR';statusEl.textContent='STREAM ERROR · TRY ANOTHER CHANNEL';playBtn.textContent='PLAY'});load();
+const PLAYER_ID='radio',STATIONS=__STATIONS__;const sel=document.getElementById('stationSelect'),audio=document.getElementById('audio'),radio=document.getElementById('radio'),statusEl=document.getElementById('status'),onair=document.getElementById('onair'),playBtn=document.getElementById('play');let names=Object.keys(STATIONS),hls=null;function notifyPlay(){window.parent.postMessage({source:'bangalir-utsav-player',type:'play',player:PLAYER_ID},'*')}function stopExternal(){audio.pause();radio.classList.remove('playing');document.getElementById('radioVinyl').classList.remove('playing');onair.textContent='OFF AIR';playBtn.textContent='PLAY';statusEl.textContent='STOPPED · ANOTHER PLAYER ACTIVE'}window.addEventListener('message',e=>{const d=e.data;if(d&&d.source==='bangalir-utsav-player'&&d.type==='stop'&&d.player!==PLAYER_ID)stopExternal()});names.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o)});function current(){return sel.value}function cleanup(){if(hls){hls.destroy();hls=null}audio.pause();audio.removeAttribute('src');audio.load()}function load(){cleanup();const n=current(),src=STATIONS[n];document.getElementById('station').textContent=n;statusEl.textContent='READY · '+n;onair.textContent='OFF AIR';playBtn.textContent='PLAY';if(!src)return;if(src.includes('.m3u8')){if(audio.canPlayType('application/vnd.apple.mpegurl')){audio.src=src}else if(window.Hls&&Hls.isSupported()){hls=new Hls({enableWorker:true,lowLatencyMode:true});hls.loadSource(src);hls.attachMedia(audio);hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal)statusEl.textContent='STREAM ERROR · HLS SOURCE UNAVAILABLE'})}else{statusEl.textContent='HLS NOT SUPPORTED IN THIS BROWSER'}}else{audio.src=src}}async function play(){try{if(!audio.src&&!hls)load();await audio.play();notifyPlay();radio.classList.add('playing');document.getElementById('radioVinyl').classList.add('playing');document.getElementById('radioVinylTitle').textContent=current();onair.textContent='ON AIR';statusEl.textContent='PLAYING · '+current();playBtn.textContent='PAUSE'}catch(e){statusEl.textContent='STREAM UNAVAILABLE · CHECK THE LIVE SOURCE'}}function pause(){audio.pause();radio.classList.remove('playing');document.getElementById('radioVinyl').classList.remove('playing');onair.textContent='OFF AIR';statusEl.textContent='PAUSED · '+current();playBtn.textContent='PLAY'}sel.onchange=()=>load();playBtn.onclick=()=>audio.paused?play():pause();document.getElementById('stop').onclick=()=>{audio.pause();audio.currentTime=0;pause()};document.getElementById('mute').onclick=()=>{audio.muted=!audio.muted;document.getElementById('mute').textContent=audio.muted?'UNMUTE':'MUTE'};document.getElementById('prev').onclick=()=>{sel.selectedIndex=(sel.selectedIndex-1+names.length)%names.length;load()};document.getElementById('next').onclick=()=>{sel.selectedIndex=(sel.selectedIndex+1)%names.length;load()};audio.addEventListener('playing',()=>{notifyPlay();radio.classList.add('playing');document.getElementById('radioVinyl').classList.add('playing');document.getElementById('radioVinylTitle').textContent=current();onair.textContent='ON AIR';playBtn.textContent='PAUSE'});audio.addEventListener('pause',()=>{if(!audio.ended)pause()});audio.addEventListener('error',()=>{radio.classList.remove('playing');document.getElementById('radioVinyl').classList.remove('playing');onair.textContent='OFF AIR';statusEl.textContent='STREAM ERROR · TRY ANOTHER CHANNEL';playBtn.textContent='PLAY'});load();
 </script></body></html>"""
     html=html.replace('__STATIONS__',stations_json)
     components.html(html, height=430, scrolling=False)
@@ -630,7 +738,7 @@ def pujo_tv_deck(playlist_id: str, title: str, component_key: str = "pujo_tv_dec
 *{box-sizing:border-box}html,body{margin:0;padding:0;background:transparent;color:#eee;font-family:Arial,sans-serif}body{overflow-x:hidden}.tv{width:100%;max-width:1080px;margin:0 auto;padding:18px 20px 22px;border-radius:20px;background:linear-gradient(145deg,#70472d 0,#3b2418 12%,#24150f 55%,#120c09 100%);border:2px solid #a87543;box-shadow:0 24px 60px rgba(0,0,0,.75),inset 0 1px rgba(255,238,200,.2);position:relative}.tv:before{content:"";position:absolute;inset:6px;border:1px solid rgba(244,194,120,.3);border-radius:15px;pointer-events:none}.tv-head{position:relative;display:flex;justify-content:space-between;gap:12px;color:#caa477;font:600 10px Georgia,serif;letter-spacing:1.7px;text-transform:uppercase;padding:0 4px 12px}.tv-brand{color:#f2c77c}.tv-body{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:16px;align-items:stretch}.crt{min-width:0;padding:15px;border:2px solid #5e3d27;border-radius:18px;background:linear-gradient(145deg,#1a110c,#090706);box-shadow:inset 0 0 32px #000,0 8px 18px rgba(0,0,0,.5)}.screen-frame{position:relative;background:#020202;border:10px solid #2e2119;border-radius:26px;box-shadow:inset 0 0 24px #000,0 0 0 2px #765137;overflow:hidden;aspect-ratio:16/9}.screen-frame:after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.42) 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px);z-index:4}.yt{position:absolute;inset:0;width:100%;height:100%;z-index:2}.yt iframe{width:100%;height:100%;border:0}.side{border:2px solid #60412c;border-radius:13px;background:linear-gradient(180deg,#2a1b13,#120c09);padding:14px;box-shadow:inset 0 0 22px #000;display:flex;flex-direction:column;justify-content:space-between}.speaker-grille{height:115px;border:1px solid #755337;border-radius:8px;background:repeating-linear-gradient(0deg,#0b0907 0 4px,#493523 5px 6px);box-shadow:inset 0 0 20px #000}.dial{margin-top:13px;height:52px;border:1px solid #795536;border-radius:6px;background:#0b0806;position:relative;overflow:hidden}.dial-scale{position:absolute;left:8%;right:8%;top:11px;display:flex;justify-content:space-between;color:#a68154;font:8px monospace}.dial-line{position:absolute;left:8%;right:8%;bottom:11px;height:1px;background:#87603a}.dial-needle{position:absolute;left:51%;top:8px;bottom:7px;width:2px;background:#e4aa5b;box-shadow:0 0 8px #e4aa5b}.knobs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.knob{width:54px;height:54px;margin:auto;border-radius:50%;background:radial-gradient(circle at 34% 28%,#d5bd92,#8a6b45 33%,#3a2919 60%,#0b0907 64%);border:2px solid #a27b4c;box-shadow:0 5px 12px #000;position:relative}.knob:after{content:"";position:absolute;width:2px;height:16px;left:50%;top:5px;transform:translateX(-50%);background:#24180f}.knob-label{text-align:center;color:#a7865c;font:8px Georgia,serif;letter-spacing:1px;margin-top:4px}.controls{margin-top:13px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding-top:11px;border-top:1px solid #4e3625}.key{height:34px;min-width:48px;padding:0 9px;border-radius:5px;border:1px solid #866445;background:linear-gradient(#554535,#1b130e);color:#e6cda5;font:600 8px Georgia,serif;cursor:pointer;box-shadow:inset 0 1px rgba(255,255,255,.08),0 3px 6px #000}.key:active{transform:translateY(2px);box-shadow:inset 0 2px 5px #000}.key.play{background:linear-gradient(#b56b2e,#5b2a12);color:#fff1d2}.timeline{margin-top:11px;height:8px;border-radius:8px;background:#2d1e15;border:1px solid #5d412a;overflow:hidden}.timeline input{width:100%;height:100%;margin:0;padding:0;accent-color:#e1a253;cursor:pointer}.meta{display:flex;justify-content:space-between;gap:8px;color:#9c7a54;font:8px monospace;margin-top:5px}.status{text-align:center;color:#b6956e;font:9px monospace;letter-spacing:.8px;margin-top:7px;min-height:13px}.now{margin-top:7px;color:#e7bd7b;text-align:center;font:600 10px Georgia,serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.playing .crt{box-shadow:inset 0 0 32px #000,0 0 20px rgba(224,157,73,.13),0 8px 18px rgba(0,0,0,.5)}
 @media(max-width:760px){.tv{padding:12px;border-radius:14px}.tv-head{font-size:8px}.tv-body{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr;gap:10px}.speaker-grille{height:70px}.dial{margin-top:0}.knobs{margin-top:0}.controls{grid-column:1/-1;margin-top:0}.timeline{grid-column:1/-1}.meta,.status,.now{grid-column:1/-1}.key{min-width:42px;height:33px;padding:0 7px}}@media(max-width:430px){.tv-head{flex-direction:column;gap:4px}.crt{padding:8px}.screen-frame{border-width:7px;border-radius:19px}.side{grid-template-columns:1fr}.speaker-grille{height:62px}.controls{gap:4px}.key{min-width:40px;font-size:7px}}
 </style></head><body><div class="tv" id="tv"><div class="tv-head"><span>● <span class="tv-brand">BANGALIR UTSAV</span> · PUJO TV</span><span>VINTAGE TELEVISION RECEIVER</span></div><div class="tv-body"><div class="crt"><div class="screen-frame"><div class="yt" id="yt-host"></div></div><div class="now" id="now">__TITLE__</div><div class="controls"><button class="key" id="prev">◀ CH−</button><button class="key" id="rewind">◀◀ 10</button><button class="key play" id="play">▶ PLAY</button><button class="key" id="stop">■ STOP</button><button class="key" id="forward">10 ▶▶</button><button class="key" id="next">CH+ ▶</button><button class="key" id="mute">MUTE</button></div><div class="timeline"><input id="progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Video progress"></div><div class="meta"><span id="elapsed">00:00</span><span id="duration">00:00</span></div><div class="status" id="status">READY · SELECTED PLAYLIST · PRESS PLAY</div></div><div class="side"><div><div class="speaker-grille"></div><div class="dial"><div class="dial-scale"><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>12</span></div><div class="dial-line"></div><div class="dial-needle"></div></div></div><div class="knobs"><div><div class="knob"></div><div class="knob-label">VOLUME</div></div><div><div class="knob"></div><div class="knob-label">TUNE</div></div></div></div></div></div><script>
-const PLAYLIST_ID=__PLAYLIST__,TITLE=__TITLE__;let player=null,ready=false;const $=id=>document.getElementById(id),progress=$("progress");function fmt(sec){sec=Math.max(0,Math.floor(sec||0));return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}function setStatus(x){$("status").textContent=x}function setPlaying(v){$("tv").classList.toggle("playing",v);$("play").textContent=v?"❚❚ PAUSE":"▶ PLAY"}function onReady(){if(ready)return;ready=true;player=new YT.Player("yt-player",{width:"100%",height:"100%",playerVars:{playsinline:1,rel:0,modestbranding:1,controls:1},events:{onReady:()=>{player.cuePlaylist({listType:"playlist",list:PLAYLIST_ID,index:0});setStatus("READY · PRESS PLAY");sync()},onStateChange:e=>{if(e.data===1){setPlaying(true);setStatus("PLAYING · "+TITLE)}else if(e.data===2){setPlaying(false);setStatus("PAUSED · "+TITLE)}else if(e.data===0){setPlaying(false);setStatus("TRACK COMPLETE")}}}})}function boot(){const host=$("yt-host");if(host&&!$("yt-player")){const d=document.createElement("div");d.id="yt-player";host.appendChild(d)}if(window.YT&&window.YT.Player)onReady();else{window.onYouTubeIframeAPIReady=onReady;const tag=document.createElement("script");tag.src="https://www.youtube.com/iframe_api";document.head.appendChild(tag)}}function sync(){if(!player||!ready)return;const cur=player.getCurrentTime()||0,dur=player.getDuration()||0;progress.value=dur?Math.round(cur/dur*1000):0;$("elapsed").textContent=fmt(cur);$("duration").textContent=fmt(dur);const idx=player.getPlaylistIndex();if(idx!=null&&idx>=0)$("now").textContent=TITLE+" · TRACK "+(idx+1)}$("play").onclick=()=>{if(!player)return;if(player.getPlayerState()===1)player.pauseVideo();else player.playVideo()};$("stop").onclick=()=>{if(player){player.pauseVideo();player.seekTo(0,true);setPlaying(false);setStatus("STOPPED · 00:00")}};$("rewind").onclick=()=>{if(player)player.seekTo(Math.max(0,(player.getCurrentTime()||0)-10),true)};$("forward").onclick=()=>{if(player)player.seekTo(Math.min(player.getDuration()||0,(player.getCurrentTime()||0)+10),true)};$("prev").onclick=()=>{if(player)player.previousVideo()};$("next").onclick=()=>{if(player)player.nextVideo()};$("mute").onclick=()=>{if(player){const m=player.isMuted();m?player.unMute():player.mute();setStatus(m?"SOUND ON":"MUTED")}};progress.addEventListener("input",()=>{if(player){const dur=player.getDuration()||0;player.seekTo(dur*(Number(progress.value)/1000),true)}});setInterval(sync,500);boot();
+const PLAYER_ID='tv',PLAYLIST_ID=__PLAYLIST__,TITLE=__TITLE__;let player=null,ready=false;function notifyPlay(){window.parent.postMessage({source:'bangalir-utsav-player',type:'play',player:PLAYER_ID},'*')}function stopExternal(){if(player){try{player.pauseVideo()}catch(e){}setPlaying(false);setStatus('STOPPED · ANOTHER PLAYER ACTIVE')}}window.addEventListener('message',e=>{const d=e.data;if(d&&d.source==='bangalir-utsav-player'&&d.type==='stop'&&d.player!==PLAYER_ID)stopExternal()});const $=id=>document.getElementById(id),progress=$("progress");function fmt(sec){sec=Math.max(0,Math.floor(sec||0));return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}function setStatus(x){$("status").textContent=x}function setPlaying(v){$("tv").classList.toggle("playing",v);$("play").textContent=v?"❚❚ PAUSE":"▶ PLAY"}function onReady(){if(ready)return;ready=true;player=new YT.Player("yt-player",{width:"100%",height:"100%",playerVars:{playsinline:1,rel:0,modestbranding:1,controls:1},events:{onReady:()=>{player.cuePlaylist({listType:"playlist",list:PLAYLIST_ID,index:0});setStatus("READY · PRESS PLAY");sync()},onStateChange:e=>{if(e.data===1){notifyPlay();setPlaying(true);setStatus("PLAYING · "+TITLE)}else if(e.data===2){setPlaying(false);setStatus("PAUSED · "+TITLE)}else if(e.data===0){setPlaying(false);setStatus("TRACK COMPLETE")}}}})}function boot(){const host=$("yt-host");if(host&&!$("yt-player")){const d=document.createElement("div");d.id="yt-player";host.appendChild(d)}if(window.YT&&window.YT.Player)onReady();else{window.onYouTubeIframeAPIReady=onReady;const tag=document.createElement("script");tag.src="https://www.youtube.com/iframe_api";document.head.appendChild(tag)}}function sync(){if(!player||!ready)return;const cur=player.getCurrentTime()||0,dur=player.getDuration()||0;progress.value=dur?Math.round(cur/dur*1000):0;$("elapsed").textContent=fmt(cur);$("duration").textContent=fmt(dur);const idx=player.getPlaylistIndex();if(idx!=null&&idx>=0)$("now").textContent=TITLE+" · TRACK "+(idx+1)}$("play").onclick=()=>{if(!player)return;if(player.getPlayerState()===1)player.pauseVideo();else{notifyPlay();player.playVideo()}};$("stop").onclick=()=>{if(player){player.pauseVideo();player.seekTo(0,true);setPlaying(false);setStatus("STOPPED · 00:00")}};$("rewind").onclick=()=>{if(player)player.seekTo(Math.max(0,(player.getCurrentTime()||0)-10),true)};$("forward").onclick=()=>{if(player)player.seekTo(Math.min(player.getDuration()||0,(player.getCurrentTime()||0)+10),true)};$("prev").onclick=()=>{if(player)player.previousVideo()};$("next").onclick=()=>{if(player)player.nextVideo()};$("mute").onclick=()=>{if(player){const m=player.isMuted();m?player.unMute():player.mute();setStatus(m?"SOUND ON":"MUTED")}};progress.addEventListener("input",()=>{if(player){const dur=player.getDuration()||0;player.seekTo(dur*(Number(progress.value)/1000),true)}});setInterval(sync,500);boot();
 </script></body></html>"""
     html=html.replace('__PLAYLIST__',playlist_json).replace('__TITLE__',title_json)
     components.html(html, height=690, scrolling=False)
@@ -650,6 +758,7 @@ with st.container(key="client_player_songs"):
     selected = st.selectbox("Curated playlist", names, index=names.index(st.session_state.active_playlist), label_visibility="collapsed", key="v4_playlist_select")
     st.session_state.active_playlist = selected
     st.markdown(f'<div class="playlist-display"><div class="playlist-display-text">{CURATED_PLAYLISTS[selected][0]}</div></div>', unsafe_allow_html=True)
+    st.markdown('<div style="height:12px"></div>', unsafe_allow_html=True)
     deck(CURATED_PLAYLISTS[selected][1], CURATED_PLAYLISTS[selected][0], component_key="v4_curated_deck")
     st.markdown('</section>', unsafe_allow_html=True)
 
@@ -744,10 +853,40 @@ st.html("""<script>
     });
     show(readSection(), false, false);
   };
+  const installUnderDevPopup = () => {
+    const popup = document.getElementById('underdev-puja-popup');
+    if (!popup || popup.dataset.bound === '1') return;
+    popup.dataset.bound = '1';
+
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[data-underdev]');
+      if (!link) return;
+      event.preventDefault();
+      event.stopPropagation();
+      popup.classList.remove('show');
+      void popup.offsetWidth;
+      popup.classList.add('show');
+      window.setTimeout(() => popup.classList.remove('show'), 3000);
+    }, true);
+  };
+
+  installUnderDevPopup();
+  setTimeout(installUnderDevPopup, 250);
+  setTimeout(installUnderDevPopup, 900);
+
   bind();
   setTimeout(bind, 250);
   setTimeout(bind, 900);
   window.addEventListener('popstate', () => show(readSection(), false, true));
+  window.addEventListener('message', event => {
+    const d = event.data;
+    if (!d || d.source !== 'bangalir-utsav-player' || d.type !== 'play') return;
+    document.querySelectorAll('iframe').forEach(frame => {
+      try {
+        frame.contentWindow.postMessage({source:'bangalir-utsav-player',type:'stop',player:d.player}, '*');
+      } catch (_) {}
+    });
+  });
 })();
 </script>""", unsafe_allow_javascript=True)
 
@@ -767,7 +906,7 @@ st.markdown(
                 <a class="footer-link" target="_self" rel="nofollow" href="?section=tv#tv-player">📺 পুজো TV</a>
                 <a class="footer-link" target="_self" rel="nofollow" href="?section=radio#radio-player">📻 লাইভ রেডিও</a>
                 <a class="footer-link" target="_self" rel="nofollow" href="?section=sounds#sounds-player">🔊 পুজোর সাউন্ড</a>
-                <a class="footer-link" target="_self" rel="nofollow" href="?panel=gallery#gallery">📸 পুজো গ্যালারি</a>
+                <a class="footer-link" target="_self" rel="nofollow" href="#" data-underdev="gallery">📸 পুজো গ্যালারি</a>
                 <a class="footer-link" target="_self" rel="nofollow" href="?panel=analytics#analytics">📊 অ্যানালিটিক্স</a>
             </div>
             <div class="footer-email">datascientistipsitacharyya@gmail.com</div>
