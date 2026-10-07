@@ -15,6 +15,7 @@ LOCAL = Path("data/site_state.json")
 DEFAULT_COUNT = 14290
 STATE_ID = 1
 RPC_INCREMENT = "increment_pushpanjali"
+LOCATION_RPC = "record_location"
 
 
 class PersistenceError(RuntimeError):
@@ -24,14 +25,14 @@ class PersistenceError(RuntimeError):
 def _load_project_secret_file():
     """Load the project's example secrets file as a local/server fallback.
 
-    Streamlit only auto-loads .streamlit/secrets.toml. The project was
-    previously using .streamlit/secrets.toml.example, so those values were
+    Streamlit only auto-loads .streamlit/secrets.production.toml. The project was
+    previously using .streamlit/secrets.production.toml.example, so those values were
     invisible to st.secrets and the app incorrectly selected local storage.
     This fallback keeps the existing deployment layout working.
     """
     if tomllib is None:
         return {}
-    path = Path(__file__).resolve().parent.parent / ".streamlit" / "secrets.toml"
+    path = Path(__file__).resolve().parent.parent / ".streamlit" / "secrets.production.toml"
     if not path.exists():
         return {}
     try:
@@ -43,7 +44,7 @@ def _load_project_secret_file():
 
 
 def secret(key, default=""):
-    # 1) Streamlit's real secrets.toml / Streamlit Cloud Secrets
+    # 1) Streamlit's real secrets.production.toml / Streamlit Cloud Secrets
     try:
         value = st.secrets.get(key, None)
         if value not in (None, ""):
@@ -110,13 +111,44 @@ def local():
     LOCAL.parent.mkdir(parents=True, exist_ok=True)
     if not LOCAL.exists():
         LOCAL.write_text(
-            json.dumps({"pushpanjali_count": DEFAULT_COUNT, "locations": []}),
+            json.dumps({"pushpanjali_count": DEFAULT_COUNT, "location_stats": {}}),
             encoding="utf-8",
         )
     try:
-        return json.loads(LOCAL.read_text(encoding="utf-8"))
+        data = json.loads(LOCAL.read_text(encoding="utf-8"))
     except Exception:
-        return {"pushpanjali_count": DEFAULT_COUNT, "locations": []}
+        return {"pushpanjali_count": DEFAULT_COUNT, "location_stats": {}}
+
+    # One-time local migration from the previous append-only location list.
+    if "location_stats" not in data and data.get("locations"):
+        stats = {}
+        for item in data.get("locations", []):
+            location = " ".join(str(item.get("location", "")).strip().split())
+            if not location:
+                continue
+            key = _location_key(location)
+            row = stats.setdefault(
+                key,
+                {
+                    "location": location,
+                    "counter": 0,
+                    "first_seen": item.get("created_at", ""),
+                    "last_seen": item.get("created_at", ""),
+                },
+            )
+            row["counter"] += 1
+            created_at = item.get("created_at", "")
+            if created_at:
+                if not row.get("first_seen") or created_at < row["first_seen"]:
+                    row["first_seen"] = created_at
+                if created_at > row.get("last_seen", ""):
+                    row["last_seen"] = created_at
+        data["location_stats"] = stats
+        data.pop("locations", None)
+        LOCAL.write_text(json.dumps(data), encoding="utf-8")
+
+    data.setdefault("location_stats", {})
+    return data
 
 
 def persistence_mode():
@@ -192,61 +224,159 @@ def increment_pushpanjali() -> int:
     )
 
 
+def _location_key(location: str) -> str:
+    """Create a stable, human-readable aggregation key without storing coordinates."""
+    return " ".join(str(location).strip().casefold().split())
+
+
 def publish_location(location: str):
-    location = str(location).strip()
+    """Atomically increment an aggregated location counter and return the updated row."""
+    location = " ".join(str(location).strip().split())
     if not location:
-        return
+        return None
+
+    now = datetime.now(timezone.utc).isoformat()
 
     if not supabase_enabled():
         data = local()
-        data.setdefault("locations", []).append(
-            {"location": location, "created_at": datetime.now(timezone.utc).isoformat()}
-        )
-        data["locations"] = data["locations"][-30:]
+        stats = data.setdefault("location_stats", {})
+        key = _location_key(location)
+        item = stats.get(key)
+        if item is None:
+            item = {
+                "location": location,
+                "counter": 0,
+                "first_seen": now,
+            }
+        item["counter"] = int(item.get("counter", 0)) + 1
+        item["last_seen"] = now
+        stats[key] = item
+        # Keep the fallback compact: one row per normalized location.
+        data.pop("locations", None)
         LOCAL.write_text(json.dumps(data), encoding="utf-8")
-        return
+        return dict(item)
 
-    _request(
+    response = _request(
         "POST",
-        "/rest/v1/live_locations",
-        headers=headers("return=minimal"),
-        json={"location": location},
+        f"/rest/v1/rpc/{LOCATION_RPC}",
+        headers=headers("return=representation"),
+        json={"p_location": location},
+    )
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        raise PersistenceError("Location RPC returned invalid JSON.") from exc
+
+    # Depending on the Supabase/PostgREST response configuration, a
+    # successful record_location() RPC may return the updated row, a one-row
+    # array, or a scalar counter. The database write has already succeeded in
+    # all of these cases. Accept the scalar form as a successful submission
+    # instead of showing a false error to the visitor.
+    if isinstance(payload, list):
+        row = payload[0] if payload else None
+        if isinstance(row, dict):
+            return row
+        if isinstance(row, (int, float)) and not isinstance(row, bool):
+            return {
+                "location": location,
+                "counter": int(row),
+                "last_seen": now,
+            }
+    elif isinstance(payload, dict):
+        return payload
+    elif isinstance(payload, (int, float)) and not isinstance(payload, bool):
+        return {
+            "location": location,
+            "counter": int(payload),
+            "last_seen": now,
+        }
+
+    # A successful RPC can also return an empty body. Since the HTTP status
+    # check above already confirmed success, treat it as a successful
+    # submission rather than raising a misleading error popup.
+    if payload is None:
+        return {
+            "location": location,
+            "counter": 1,
+            "last_seen": now,
+        }
+
+    raise PersistenceError(
+        f"Location RPC returned an unexpected response: {payload!r}"
     )
 
 
-def get_locations(limit=30):
-    limit = max(1, min(int(limit), 100))
+def get_location_stats(limit=50):
+    """Return aggregate location rows, newest activity first."""
+    limit = max(1, min(int(limit), 200))
     if not supabase_enabled():
-        return [x.get("location", "") for x in local().get("locations", [])[-limit:]]
+        rows = list(local().get("location_stats", {}).values())
+        rows.sort(key=lambda x: x.get("last_seen", ""), reverse=True)
+        return rows[:limit]
 
     response = _request(
         "GET",
-        f"/rest/v1/live_locations?select=location&order=created_at.desc&limit={limit}",
+        f"/rest/v1/location_stats?select=location,counter,first_seen,last_seen"
+        f"&order=last_seen.desc&limit={limit}",
     )
-    return [x["location"] for x in response.json() if x.get("location")]
+    return response.json()
+
+
+def get_location_participant_count() -> int:
+    """Total submissions to date = sum of all aggregated location counters."""
+    if not supabase_enabled():
+        return sum(
+            int(row.get("counter", 0))
+            for row in local().get("location_stats", {}).values()
+        )
+
+    response = _request(
+        "GET",
+        "/rest/v1/location_stats?select=counter",
+    )
+    return sum(int(row.get("counter", 0)) for row in response.json())
+
+
+def get_unique_location_count() -> int:
+    """Number of distinct normalized locations represented in the aggregate table."""
+    if not supabase_enabled():
+        return len(local().get("location_stats", {}))
+
+    response = _request(
+        "GET",
+        "/rest/v1/location_stats?select=location",
+    )
+    return len(response.json())
 
 
 def get_latest_location_event():
-    """Return the newest broadcast event with its timestamp for live clients."""
+    """Return the newest aggregate update so active clients can show a short popup."""
     if not supabase_enabled():
-        items = local().get("locations", [])
-        if not items:
+        rows = get_location_stats(1)
+        if not rows:
             return None
-        item = items[-1]
+        row = rows[0]
         return {
-            "location": item.get("location", ""),
-            "created_at": item.get("created_at", ""),
+            "location": row.get("location", ""),
+            "counter": int(row.get("counter", 0)),
+            "last_seen": row.get("last_seen", ""),
         }
 
     response = _request(
         "GET",
-        "/rest/v1/live_locations?select=location,created_at&order=created_at.desc&limit=1",
+        "/rest/v1/location_stats?"
+        "select=location,counter,last_seen"
+        "&order=last_seen.desc&limit=1",
     )
     rows = response.json()
     if not rows:
         return None
     row = rows[0]
-    return {"location": row.get("location", ""), "created_at": row.get("created_at", "")}
+    return {
+        "location": row.get("location", ""),
+        "counter": int(row.get("counter", 0)),
+        "last_seen": row.get("last_seen", ""),
+    }
 
 
 def submit_song_request(title, artist, url, location):

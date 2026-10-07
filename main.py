@@ -13,7 +13,8 @@ from services.persistence import (
     get_pushpanjali_count,
     increment_pushpanjali,
     publish_location,
-    get_locations,
+    get_location_participant_count,
+    get_unique_location_count,
     get_latest_location_event,
     submit_song_request,
     PersistenceError,
@@ -107,6 +108,8 @@ ASSET = {
     "featured": img_uri("assets/puja_song_featured.PNG"),
     "agomoni": img_uri("assets/playlist_agomoni.PNG"),
     "classics": img_uri("assets/playlist_bengali_classics.PNG"),
+    "bengaliRock": img_uri("assets/playlist_rock.PNG"),
+    "bengaliRabindra": img_uri("assets/playlist_rabindra.PNG"),
     "dhak": img_uri("assets/playlist_dhak_beats.PNG"),
     "indie": img_uri("assets/playlist_pujo_indie.PNG"),
     "tv": img_uri("assets/pujo_tv.PNG"),
@@ -385,8 +388,13 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
 
 .footer-panel{{margin-top:18px}}
 
+.pulse-grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}}
+.pulse-card{{padding:18px 14px;text-align:center;border:1px solid rgba(180,122,52,.62);border-radius:16px;background:rgba(116,21,34,.055);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}}
+.pulse-icon{{font-size:1.25rem;line-height:1.2;margin-bottom:5px}}
+.pulse-value{{font:700 clamp(1.45rem,3vw,2.2rem)/1.1 'Cinzel',serif;color:var(--red)}}
+.pulse-label{{margin-top:5px;font:600 .82rem 'Noto Serif Bengali',serif;color:var(--muted)}}
 @media(max-width:1000px){{.topbar{{padding:0 12px}}.topnav a{{font-size:.75rem;padding:8px 9px}}.hero-banner{{grid-template-columns:1fr;min-height:520px}}.hero-count{{justify-self:start;margin-top:18px;width:260px}}.feature-cards{{grid-template-columns:repeat(2,minmax(0,1fr))}}.playlist-strip{{grid-template-columns:repeat(3,minmax(0,1fr))}}.community{{grid-template-columns:1fr}}}}
-@media(max-width:680px){{.topbar{{min-height:58px;align-items:flex-start;padding-top:9px;padding-bottom:9px}}.brand{{font-size:.95rem}}.topnav{{justify-content:flex-end}}.topnav a{{font-size:.68rem;padding:7px 6px}}.hero-banner{{padding:34px 20px 0;min-height:550px}}.hero-title{{font-size:2.55rem}}.hero-count{{width:100%;max-width:290px}}.section-nav{{border-radius:15px;grid-template-columns:repeat(2,1fr)}}.section-nav a{{border-bottom:1px solid rgba(180,122,52,.25)}}.page-section{{padding:16px;border-radius:16px}}.feature-grid{{grid-template-columns:1fr}}.feature-song{{grid-template-columns:110px 1fr}}.playlist-strip{{grid-template-columns:repeat(2,minmax(0,1fr))}}.feature-cards{{grid-template-columns:1fr 1fr;gap:10px}}.feature-card{{min-height:320px;padding:12px}}.community img{{height:170px}}.footer{{min-height:260px;padding:35px 12px 24px}}.footer-side{{width:58%}}.footer-content{{width:96%}}}}
+@media(max-width:680px){{.pulse-grid{{grid-template-columns:1fr}}.topbar{{min-height:58px;align-items:flex-start;padding-top:9px;padding-bottom:9px}}.brand{{font-size:.95rem}}.topnav{{justify-content:flex-end}}.topnav a{{font-size:.68rem;padding:7px 6px}}.hero-banner{{padding:34px 20px 0;min-height:550px}}.hero-title{{font-size:2.55rem}}.hero-count{{width:100%;max-width:290px}}.section-nav{{border-radius:15px;grid-template-columns:repeat(2,1fr)}}.section-nav a{{border-bottom:1px solid rgba(180,122,52,.25)}}.page-section{{padding:16px;border-radius:16px}}.feature-grid{{grid-template-columns:1fr}}.feature-song{{grid-template-columns:110px 1fr}}.playlist-strip{{grid-template-columns:repeat(2,minmax(0,1fr))}}.feature-cards{{grid-template-columns:1fr 1fr;gap:10px}}.feature-card{{min-height:320px;padding:12px}}.community img{{height:170px}}.footer{{min-height:260px;padding:35px 12px 24px}}.footer-side{{width:58%}}.footer-content{{width:96%}}}}
 @media(max-width:430px){{.topnav a{{font-size:.62rem;padding:6px 4px}}.brand-mark{{display:none}}.hero-title{{font-size:2.25rem}}.hero-sub{{font-size:.86rem}}.feature-cards{{grid-template-columns:1fr}}.playlist-strip{{grid-template-columns:1fr 1fr}}.playlist-tile .pname{{font-size:.7rem}}}}
 </style>""",
 unsafe_allow_html=True,
@@ -474,7 +482,7 @@ if hasattr(st, "fragment"):
         try:
             event = get_latest_location_event()
             if event:
-                event_id = f"{event.get('created_at','')}|{event.get('location','')}"
+                event_id = f"{event.get('last_seen','')}|{event.get('location','')}|{event.get('counter',0)}"
                 if st.session_state.last_location_event_id is None:
                     st.session_state.last_location_event_id = event_id
                 elif event_id != st.session_state.last_location_event_id:
@@ -572,7 +580,7 @@ st.markdown(nav_html, unsafe_allow_html=True)
 featured_uri = ASSET["featured"]
 st.markdown(
     f"""<section class="page-section">
-        <div class="section-head"><div><div class="kicker">Featured</div><div class="section-title">পুজোর গান</div><div class="section-desc">শারদীয়ার সেরা গানগুলি নিয়ে আমাদের বিশেষ সংগ্রহ — আগমনী, রবীন্দ্রসঙ্গীত, ধাক আর পুজোর মুড।</div></div></div>
+        <div class="section-head"><div><div class="kicker">Featured</div><div class="section-title">পুজোর গান</div><div class="section-desc">শারদীয়ার সেরা গানগুলি নিয়ে আমাদের বিশেষ সংগ্রহ — আগমনী, রবীন্দ্রসঙ্গীত, ঢাক আর পুজোর মুড।</div></div></div>
         <div class="ornament-rule"></div>
         <div class="feature-grid">
             <div class="feature-song">
@@ -609,10 +617,10 @@ if st.session_state.ai_result:
 
 # Playlist art — all requested images are actually rendered.
 playlist_art = {
-    "Rabindra Sangeet": (ASSET["classics"], "রবীন্দ্রসঙ্গীত"),
+    "Rabindra Sangeet": (ASSET["bengaliRabindra"], "রবীন্দ্রসঙ্গীত"),
     "Bangla Nostalgia": (ASSET["classics"], "বাংলা নস্টালজিয়া"),
     "Bangla Dance Number": (ASSET["dhak"], "নাচের বাংলা গান"),
-    "Bangla Rock": (ASSET["indie"], "বাংলা রক"),
+    "Bangla Rock": (ASSET["bengaliRock"], "বাংলা রক"),
     "Pujor Gaan": (ASSET["featured"], "পুজোর গান"),
     "Mahalaya": (ASSET["agomoni"], "মহালয়া · আগমনী"),
 }
@@ -626,17 +634,20 @@ st.markdown('<div class="playlist-strip">' + ''.join(playlist_tiles) + '</div>',
 loc_col, req_col = st.columns([1.2, .8])
 with loc_col:
     st.markdown(
-        f"""<section class="page-section loc-card" style="height:100%;margin-bottom:0;padding-bottom:20px"><div class="kicker">Live Puja Map</div><div class="section-title">📍 লাইভ পুজো ম্যাপ</div><div class="section-desc">আপনার এলাকার পুজো কোথায়, কীভাবে পৌঁছবেন — জেনে নিন এক ক্লিকে।</div></section>""",
+        f"""<section class="page-section loc-card" style="height:100%;margin-bottom:0;padding-bottom:20px"><div class="kicker">Live Puja Map</div><div class="section-title">📍 লাইভ পুজো ম্যাপ</div><div class="section-desc">আপনার প্যান্ডেলের লোকেশন ব্রডকাস্ট করুন</div></section>""",
         unsafe_allow_html=True,
     )
     loc = st.text_input("Location", placeholder="আপনার এলাকা / পিন কোড লিখুন", label_visibility="collapsed", key="v2_loc")
     if st.button("🗺️ আমার পুজোর লোকেশন শেয়ার করুন →", key="v2_loc_btn", use_container_width=True):
         if loc.strip():
             try:
-                publish_location(loc.strip())
-                latest = get_latest_location_event()
-                if latest:
-                    st.session_state.last_location_event_id = f"{latest.get('created_at','')}|{latest.get('location','')}"
+                event = publish_location(loc.strip())
+                if event:
+                    st.session_state.last_location_event_id = (
+                        f"{event.get('last_seen','')}|"
+                        f"{event.get('location','')}|"
+                        f"{event.get('counter',0)}"
+                    )
                 st.session_state.popup_message = f"📍 {loc.strip()}"
                 st.session_state.popup_kind = "location"
             except PersistenceError as exc:
@@ -645,11 +656,17 @@ with loc_col:
                 st.session_state.popup_kind = "error"
             _render_global_popup()
     try:
-        live_locations = get_locations(30)
+        location_participants = get_location_participant_count()
+        unique_locations = get_unique_location_count()
     except PersistenceError:
-        live_locations = []
-    if live_locations:
-        st.markdown(f'<div class="section-desc" style="margin-top:8px"><b>LIVE:</b> {" · ".join(live_locations[:10])}</div>', unsafe_allow_html=True)
+        location_participants = 0
+        unique_locations = 0
+    st.markdown(
+        f'<div class="section-desc" style="margin-top:10px">'
+        f'<b>🌍 {location_participants:,}</b> puja participants · '
+        f'<b>{unique_locations:,}</b> locations joined</div>',
+        unsafe_allow_html=True,
+    )
 with req_col:
     st.markdown('<section class="page-section" style="height:100%;margin-bottom:0"><div class="kicker">Community Requests</div><div class="section-title">🎶 গান রিকোয়েস্ট</div><div class="section-desc">আপনার প্রিয় গানটি আমাদের জানান, পুজোর আড্ডায় সেটি পৌঁছে যাবে।</div></section>', unsafe_allow_html=True)
     rt = st.text_input("Song title", placeholder="গানের নাম / শিল্পীর নাম", key="v2_rt")
@@ -662,6 +679,28 @@ with req_col:
             (st.success if ok else st.warning)(msg)
         else:
             st.warning("অন্তত গানের নামটি লিখুন।")
+
+# -----------------------------------------------------------------------------
+# Puja Pulse — compact live participation snapshot
+# -----------------------------------------------------------------------------
+st.markdown(
+    f"""<section class="page-section pulse-section" id="puja-pulse">
+        <div class="section-head">
+            <div>
+                <div class="kicker">Puja Pulse</div>
+                <div class="section-title">🌺 পুজোর পালস · Live Community</div>
+                <div class="section-desc">এই মুহূর্তে আমাদের ভার্চুয়াল পুজোয় মানুষের অংশগ্রহণের ছোট্ট snapshot।</div>
+            </div>
+        </div>
+        <div class="ornament-rule"></div>
+        <div class="pulse-grid">
+            <div class="pulse-card"><div class="pulse-icon">🔔</div><div class="pulse-value">{st.session_state.pushpanjali_count:,}</div><div class="pulse-label">পুষ্পাঞ্জলি</div></div>
+            <div class="pulse-card"><div class="pulse-icon">📍</div><div class="pulse-value">{location_participants:,}</div><div class="pulse-label">লোকেশন অংশগ্রহণ</div></div>
+            <div class="pulse-card"><div class="pulse-icon">🌍</div><div class="pulse-value">{unique_locations:,}</div><div class="pulse-label">ইউনিক লোকেশন</div></div>
+        </div>
+    </section>""",
+    unsafe_allow_html=True,
+)
 
 # -----------------------------------------------------------------------------
 # Four feature cards — Pujo Song, Pujo TV, Live Radio and Puja Sound
@@ -910,7 +949,7 @@ st.markdown(
                 <a class="footer-link" target="_self" rel="nofollow" href="?panel=analytics#analytics">📊 অ্যানালিটিক্স</a>
             </div>
             <div class="footer-email">datascientistipsitacharyya@gmail.com</div>
-            <div class="footer-meta">BUILT WITH LOVE · BANGALIR UTSAV · FESTIVALS OF THE BENGALI, FOR THE BENGALI, BY THE BENGALI</div>
+            <div class="footer-meta">BUILT WITH LOVE BY IPSIT ACHARYYA· BANGALIR UTSAV · FESTIVALS OF THE BENGALI, FOR THE BENGALI, BY THE BENGALI</div>
         </div>
     </footer>""",
     unsafe_allow_html=True,

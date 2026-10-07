@@ -4,14 +4,14 @@ This version keeps the existing functional foundation (Puja Songs, Pujo TV, Live
 
 ## What changed in this design pass
 
-- The full homepage is rendered in one long page instead of swapping out the rest of the page when one media section is selected.
-- Main navigation uses same-tab `#hash` links with `target="_self"`. Clicking Puja Songs / Pujo TV / Live Radio / Puja Sound scrolls to the real functional player section in the same tab.
-- The top and secondary Mahalaya countdowns are Bengali and use the existing Noto Serif Bengali Google font.
-- The content container is widened so large screens use the page width instead of leaving excessive side whitespace.
-- Small Bengali-style alpana corner ornaments were added as a lightweight SVG: `assets/decorations/alpana_corner.svg`.
-- The footer uses `footer_diya.PNG` mirrored on the left and `footer_dhak.PNG` on the right so the two side images balance symmetrically.
-- The retro players keep their existing controls and behavior, with their outer palette aligned to the page's maroon / brass / cream visual language.
-- Puja Sound remains safe with an empty `assets/sounds/` directory. Adding the sound files later does not require changing the page structure.
+* The full homepage is rendered in one long page instead of swapping out the rest of the page when one media section is selected.
+* Main navigation uses same-tab `#hash` links with `target="\_self"`. Clicking Puja Songs / Pujo TV / Live Radio / Puja Sound scrolls to the real functional player section in the same tab.
+* The top and secondary Mahalaya countdowns are Bengali and use the existing Noto Serif Bengali Google font.
+* The content container is widened so large screens use the page width instead of leaving excessive side whitespace.
+* Small Bengali-style alpana corner ornaments were added as a lightweight SVG: `assets/decorations/alpana\_corner.svg`.
+* The footer uses `footer\_diya.PNG` mirrored on the left and `footer\_dhak.PNG` on the right so the two side images balance symmetrically.
+* The retro players keep their existing controls and behavior, with their outer palette aligned to the page's maroon / brass / cream visual language.
+* Puja Sound remains safe with an empty `assets/sounds/` directory. Adding the sound files later does not require changing the page structure.
 
 ## Run locally
 
@@ -36,7 +36,7 @@ and put your real values there.
 
 ## Secret handling
 
-Never commit the real `.streamlit/secrets.toml` to GitHub. It is ignored by `.gitignore`. The repository should contain only `.streamlit/secrets.toml.example` as a safe template.
+Never commit the real `.streamlit/secrets.production.toml` to GitHub. It is ignored by `.gitignore`. The repository should contain only `.streamlit/secrets.toml.example` as a safe template.
 
 For Streamlit Community Cloud, add the real secrets in the app's **Secrets** settings instead of committing them to the repository.
 
@@ -56,3 +56,8 @@ assets/sounds/crowd.mp3
 ```
 
 The sound folder may remain empty while the website is being designed.
+
+
+
+Test Database: test@bangalirutsav123
+

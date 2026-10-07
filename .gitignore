@@ -1,4 +1,5 @@
 # Private secrets and API keys
+.streamlit/secrets.production.toml
 .streamlit/secrets.toml
 .env
 
