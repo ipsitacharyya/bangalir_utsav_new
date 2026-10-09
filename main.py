@@ -121,7 +121,7 @@ ASSET = {
     "footer_left": img_uri("assets/footer_diya.PNG"),
     "footer_right": img_uri("assets/footer_dhak.PNG"),
     "push_bell": img_uri_candidates("assets/bell_icon.PNG", "assets/bell_icon.png"),
-    "site_qr": img_uri_candidates("assets/site_qr.png", "assets/site_qr.PNG", "assets/site_qr.webp"),
+    "site_qr": img_uri_candidates("assets/site_qr.jpg", "assets/site_qr.JPG", "assets/site_qr.webp"),
 }
 
 # -----------------------------------------------------------------------------
@@ -537,7 +537,7 @@ logo_html = f'<img class="brand-logo" src="{ASSET["logo"]}" alt="বাঙাল
 
 st.markdown(
     f"""<div class="topbar">
-        <a class="brand" target="_self" rel="nofollow" href="?section=songs#songs-player">{logo_html}বাঙালির উৎসব</a>
+        <a class="brand" target="_self" rel="nofollow" href="?section=songs#songs-player">{logo_html}</a>
         <nav class="topnav">
             <a class="{'active' if st.session_state.active_section=='Puja Songs' else ''}" target="_self" rel="nofollow" href="?section=songs#songs-player">হোম</a>
             <a class="{'active' if st.session_state.active_section=='Puja Songs' else ''}" target="_self" rel="nofollow" href="?section=songs#songs-player">পুজোর গান</a>
@@ -964,7 +964,7 @@ st.html("""<script>
 # -----------------------------------------------------------------------------
 # Poster download dialog
 # -----------------------------------------------------------------------------
-POSTER_PATH = BASE_DIR / "assets/site_qr.png"
+POSTER_PATH = BASE_DIR / "assets/site_qr.jpg"
 
 def _close_poster_dialog():
     try:
@@ -984,7 +984,7 @@ def _show_poster_dialog():
             st.download_button(
                 "⬇ পোস্টার ডাউনলোড করুন",
                 data=poster_file.read(),
-                file_name="site_qr.png",
+                file_name="site_qr.jpg",
                 mime="image/png",
                 key="site_qr_download",
                 type="primary",
@@ -995,12 +995,11 @@ def _show_poster_dialog():
         st.markdown(
             "<div style='padding:42px 18px;border:1px dashed #b47a34;border-radius:14px;background:#f8f0df;text-align:center;color:#741522;font-family:\"Noto Serif Bengali\",serif;'>"
             '<div style="font-size:2rem;">🖼️</div>'
-            '<div style="font-weight:700;margin-top:8px;">site_qr.png</div>'
-            '<div style="font-size:.78rem;color:#795f57;margin-top:6px;">এই placeholder-এর জায়গায় assets/site_qr.png ফাইলটি যোগ করুন।</div>'
+            '<div style="font-weight:700;margin-top:8px;">site_qr.jpg</div>'
             '</div>',
             unsafe_allow_html=True,
         )
-        st.info("Poster image is not added yet. The popup is ready; add assets/site_qr.png later.")
+
 
     st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
     if st.button("✕ বন্ধ করুন", key="close_poster_dialog", type="secondary", width="stretch"):
