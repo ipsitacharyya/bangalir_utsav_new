@@ -104,12 +104,14 @@ def img_uri_candidates(*paths):
     return ""
 
 ASSET = {
+    "logo": img_uri_candidates("assets/logo.png"),
     "hero": img_uri_candidates("assets/hero_durga_puja.PNG", "assets/hero_durga_puja.png", "assets/bg_durga.jpg"),
     "featured": img_uri("assets/puja_song_featured.PNG"),
     "agomoni": img_uri("assets/playlist_agomoni.PNG"),
     "classics": img_uri("assets/playlist_bengali_classics.PNG"),
     "bengaliRock": img_uri("assets/playlist_rock.PNG"),
     "bengaliRabindra": img_uri("assets/playlist_rabindra.PNG"),
+    "bengaliRomantic": img_uri("assets/playlist_pujo_indie.PNG"),
     "dhak": img_uri("assets/playlist_dhak_beats.PNG"),
     "indie": img_uri("assets/playlist_pujo_indie.PNG"),
     "tv": img_uri("assets/pujo_tv.PNG"),
@@ -119,6 +121,7 @@ ASSET = {
     "footer_left": img_uri("assets/footer_diya.PNG"),
     "footer_right": img_uri("assets/footer_dhak.PNG"),
     "push_bell": img_uri_candidates("assets/bell_icon.PNG", "assets/bell_icon.png"),
+    "site_qr": img_uri_candidates("assets/site_qr.png", "assets/site_qr.PNG", "assets/site_qr.webp"),
 }
 
 # -----------------------------------------------------------------------------
@@ -201,7 +204,8 @@ f"""<style>
 
 /* top header */
 .topbar{{width:100%;min-height:66px;background:linear-gradient(180deg,#741522,#5d0f19);border-bottom:1px solid rgba(222,177,98,.75);display:flex;align-items:center;padding:0 22px;box-shadow:0 5px 20px rgba(76,17,25,.18);position:relative;z-index:20}}
-.brand,.brand:visited{{font:700 1.15rem 'Noto Serif Bengali',serif;color:#fff8e9!important;white-space:nowrap;text-decoration:none!important}}
+.brand,.brand:visited{{display:flex;align-items:center;gap:10px;font:700 1.15rem 'Noto Serif Bengali',serif;color:#fff8e9!important;white-space:nowrap;text-decoration:none!important}}
+.brand-logo{{display:block;width:auto;height:42px;max-width:150px;object-fit:contain;flex:0 0 auto}}
 .brand-mark{{font-size:1.35rem;margin-right:8px}}
 .topnav{{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}}
 .topnav a{{color:#fff !important;text-decoration:none !important;font:600 .82rem 'Noto Serif Bengali',serif;padding:9px 13px;border-radius:999px;border:1px solid transparent;transition:.18s}}
@@ -216,8 +220,9 @@ f"""<style>
 .hero-title{{font:700 clamp(2.7rem,6vw,5.8rem)/1.02 'Noto Serif Bengali',serif;color:#fff8e9;max-width:760px;text-shadow:0 5px 24px rgba(0,0,0,.4)}}
 .hero-sub{{font:500 clamp(.95rem,1.5vw,1.15rem)/1.7 'Noto Serif Bengali',serif;color:#f5ddc2;max-width:700px;margin:18px 0 24px}}
 .hero-actions{{display:flex;gap:12px;flex-wrap:wrap}}
-.hero-btn{{display:inline-block;padding:12px 22px;border-radius:999px;border:1px solid #efc77f;text-decoration:none;color:#fff8e9!important;background:rgba(116,21,34,.82);font:600 .84rem 'Noto Serif Bengali',serif}}
+.hero-btn,.hero-btn:visited,.hero-btn:hover,.hero-btn:focus,.hero-btn:active{{display:inline-block;padding:12px 22px;border-radius:999px;border:1px solid #efc77f;text-decoration:none!important;color:#fff8e9!important;background:rgba(116,21,34,.82);font:600 .84rem 'Noto Serif Bengali',serif}}
 .hero-btn.primary{{background:#f1c56f;color:#5e101a!important;border-color:#f1c56f}}
+.hero-btn.bmc-btn,.hero-btn.bmc-btn:visited,.hero-btn.bmc-btn:hover,.hero-btn.bmc-btn:focus,.hero-btn.bmc-btn:active{{background:#FF5F5F!important;color:#ffffff!important;border:1px solid #000000!important;text-decoration:none!important}}
 .hero-count{{justify-self:end;align-self:end;width:min(100%,310px);padding:26px 20px;text-align:center;border:1px solid rgba(239,199,127,.8);border-radius:20px;background:linear-gradient(145deg,rgba(83,12,22,.82),rgba(55,7,14,.72));box-shadow:inset 0 0 0 1px rgba(255,235,185,.08),0 15px 30px rgba(45,6,12,.24);margin-bottom:8px}}
 .hero-count .small{{font:600 .72rem 'Cinzel',serif;letter-spacing:2px;color:#e9c47d}}
 .hero-count .main{{font:700 clamp(3rem,6vw,5rem)/1 'Noto Serif Bengali',serif;color:#fff8e9;margin:10px 0 4px}}
@@ -247,7 +252,7 @@ f"""<style>
 
 /* section surfaces */
 .page-section{{position:relative;background:rgba(255,250,240,.72);border:1px solid rgba(180,122,52,.45);border-radius:20px;padding:24px;margin:0 0 18px;box-shadow:0 8px 24px rgba(73,25,27,.08);overflow:hidden}}
-.page-section:before,.page-section:after{{content:"";position:absolute;width:150px;height:150px;background-image:url("{ALPANA_URI}");background-size:contain;background-repeat:no-repeat;pointer-events:none;opacity:.72}}
+.page-section:before,.page-section:after{{content:"";position:absolute;width:150px;height:150px;background-image:url("{ALPANA_URI}");background-size:contain;background-repeat:no-repeat;pointer-events:none;opacity:.48}}
 .page-section:before{{top:0;left:0}}
 .page-section:after{{right:0;bottom:0;transform:rotate(180deg)}}
 .loc-card{{margin-bottom:10px!important}}
@@ -265,6 +270,13 @@ f"""<style>
 .feature-title{{font:700 1.8rem 'Noto Serif Bengali',serif;color:var(--ink)}}
 .ai-box{{height:100%;background:linear-gradient(145deg,rgba(116,21,34,.08),rgba(255,255,255,.18));border:1px solid rgba(180,122,52,.45);border-radius:16px;padding:22px;position:relative;overflow:hidden}}
 .ai-box:after{{content:"♫";position:absolute;right:18px;top:12px;color:#8d1828;font-size:3.5rem;opacity:.18}}
+[class*="st-key-featured_section_container"]{{background:rgba(255,250,240,.72);border:1px solid rgba(180,122,52,.45);border-radius:20px;padding:24px;margin:0 0 18px;box-shadow:0 8px 24px rgba(73,25,27,.08);position:relative;overflow:hidden}}
+[class*="st-key-featured_section_container"]:before,[class*="st-key-featured_section_container"]:after{{content:"";position:absolute;width:150px;height:150px;background-image:url("{ALPANA_URI}");background-size:contain;background-repeat:no-repeat;pointer-events:none;opacity:.48;z-index:0}}
+[class*="st-key-featured_section_container"]:before{{top:0;left:0}}[class*="st-key-featured_section_container"]:after{{right:0;bottom:0;transform:rotate(180deg)}}
+[class*="st-key-featured_section_container"] > div{{position:relative;z-index:1}}
+[class*="st-key-ai_dj_box"]{{height:100%;background:linear-gradient(145deg,rgba(116,21,34,.08),rgba(255,255,255,.18));border:1px solid rgba(180,122,52,.45);border-radius:16px;padding:22px;position:relative;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}}
+[class*="st-key-ai_dj_box"]:after{{content:"♫";position:absolute;right:18px;top:12px;color:#8d1828;font-size:3.5rem;opacity:.18;pointer-events:none}}
+[class*="st-key-ai_dj_box"] [data-testid="stHorizontalBlock"]{{gap:12px}}
 
 /* playlist image strip */
 .playlist-strip{{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:16px;margin-bottom:14px}}
@@ -274,15 +286,15 @@ f"""<style>
 
 /* form controls */
 div[data-testid="stTextInput"] label,div[data-testid="stTextInput"] label p,div[data-testid="stTextArea"] label,div[data-testid="stTextArea"] label p,div[data-testid="stSelectbox"] label,div[data-testid="stSelectbox"] label p{{color:#8d1828!important;-webkit-text-fill-color:#8d1828!important;font-family:'Noto Serif Bengali',serif!important}}
-div[data-testid="stTextInput"] div[data-baseweb="input"],div[data-testid="stTextArea"] div[data-baseweb="textarea"],div[data-baseweb="input"],div[data-baseweb="textarea"]{{background:#24232d!important;border:1px solid rgba(180,122,52,.42)!important;box-shadow:none!important;border-radius:10px!important}}
-div[data-testid="stTextInput"] input,div[data-testid="stTextArea"] textarea,input,textarea{{background:transparent!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border:none!important;box-shadow:none!important;font-family:'Noto Serif Bengali',serif!important;caret-color:#fff!important}}
+div[data-testid="stTextInput"] div[data-baseweb="input"],div[data-testid="stTextInput"] div[data-baseweb="input"] > div,div[data-testid="stTextArea"] div[data-baseweb="textarea"],div[data-testid="stTextArea"] div[data-baseweb="textarea"] > div,div[data-baseweb="input"],div[data-baseweb="input"] > div,div[data-baseweb="textarea"],div[data-baseweb="textarea"] > div{{background:#741522!important;background-color:#741522!important;border:1px solid rgba(212,164,92,.78)!important;box-shadow:inset 0 0 0 1px rgba(255,235,185,.05),0 5px 12px rgba(76,17,25,.10)!important;border-radius:10px!important}}
+div[data-testid="stTextInput"] input,div[data-testid="stTextArea"] textarea,div[data-baseweb="input"] input,div[data-baseweb="textarea"] textarea,input,textarea{{background:#741522!important;background-color:#741522!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border:none!important;box-shadow:none!important;font-family:'Noto Serif Bengali',serif!important;caret-color:#fff!important;border-radius:10px!important}}
 div[data-testid="stTextInput"] input::placeholder,div[data-testid="stTextArea"] textarea::placeholder,input::placeholder,textarea::placeholder{{color:#cfc9d0!important;-webkit-text-fill-color:#cfc9d0!important;opacity:1!important}}
-div[data-baseweb="select"]>div{{background:#24232d!important;border:1px solid rgba(180,122,52,.42)!important;border-radius:10px!important;color:#fff!important}}
+div[data-baseweb="select"]>div,div[data-baseweb="select"]>div>div{{background:#741522!important;background-color:#741522!important;border:1px solid rgba(212,164,92,.78)!important;border-radius:10px!important;color:#fff!important;box-shadow:inset 0 0 0 1px rgba(255,235,185,.05),0 5px 12px rgba(76,17,25,.10)!important}}
 div[data-baseweb="select"]>div,div[data-baseweb="select"]>div *,div[data-baseweb="select"] [data-testid="stMarkdownContainer"],div[data-baseweb="select"] span,div[data-baseweb="select"] input,div[data-baseweb="select"] [role="combobox"],div[data-baseweb="select"] [role="combobox"] *{{color:#fff!important;-webkit-text-fill-color:#fff!important;caret-color:#fff!important}}
-ul[data-baseweb="menu"]{{background:#24232d!important;border:1px solid #d4a45c!important}}
-ul[data-baseweb="menu"] li{{color:#fff!important;background:#24232d!important}}
+ul[data-baseweb="menu"]{{background:#5b0d18!important;border:1px solid #d4a45c!important}}
+ul[data-baseweb="menu"] li{{color:#fff!important;background:#5b0d18!important}}
 ul[data-baseweb="menu"] li:hover,ul[data-baseweb="menu"] li[aria-selected="true"]{{color:#fff!important;background:#741522!important}}
-[data-baseweb="popover"] [role="option"],[data-baseweb="popover"] [role="option"] *{{color:#fff!important;-webkit-text-fill-color:#fff!important}}
+[data-baseweb="popover"] [role="option"],[data-baseweb="popover"] [role="option"] *{{color:#fff!important;-webkit-text-fill-color:#fff!important;background:#5b0d18!important}}
 
 div[data-testid="stButton"]>button{{border-radius:999px!important;min-height:42px!important;border:1px solid #b47a34!important;background:var(--red)!important;color:#fff7e8!important;font-family:'Noto Serif Bengali',serif!important;box-shadow:0 6px 14px rgba(116,21,34,.16)!important}}
 div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-color:#d4a45c!important}}
@@ -311,7 +323,8 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
   background-repeat:no-repeat!important;
   background-position:center center!important;
   background-size:96px 110px!important;
-  box-shadow:none!important;
+  box-shadow:0 9px 18px rgba(73,25,27,.28),0 3px 0 rgba(91,13,25,.30)!important;
+  filter:drop-shadow(0 3px 4px rgba(73,25,27,.18));
   color:transparent!important;
   -webkit-text-fill-color:transparent!important;
   font-size:0!important;
@@ -326,6 +339,15 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
 [class*="st-key-pushpanjali_btn"] button > span,
 [class*="st-key-pushpanjali_btn"] button p{{
   display:none!important;
+}}
+[class*="st-key-pushpanjali_btn"] button:hover{{
+  transform:translateY(-2px)!important;
+  filter:drop-shadow(0 5px 6px rgba(73,25,27,.24));
+}}
+[class*="st-key-pushpanjali_btn"] button:active{{
+  transform:translateY(2px)!important;
+  box-shadow:0 3px 8px rgba(73,25,27,.22),0 1px 0 rgba(91,13,25,.25)!important;
+  filter:drop-shadow(0 2px 3px rgba(73,25,27,.16));
 }}
 
 
@@ -346,9 +368,11 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
 /* community */
 .community{{display:grid;grid-template-columns:1.15fr .85fr;gap:20px;align-items:center}}
 .community img{{width:100%;height:220px;object-fit:cover;border-radius:14px;border:1px solid rgba(180,122,52,.42)}}
+.community-head{{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:4px}}
 .avatar-row{{display:flex;align-items:center;gap:7px;margin-top:12px}}
 .avatar{{width:38px;height:38px;border-radius:50%;background:linear-gradient(145deg,#8d1828,#5d1019);border:2px solid #e0b56f;color:#fff;text-align:center;padding-top:8px;font:700 .7rem Georgia,serif}}
-.live-pill{{margin-left:auto;border:1px solid #a5b78f;background:#f4f8ee;color:#55733f;border-radius:999px;padding:7px 13px;font:600 .7rem 'Cinzel',serif}}
+.live-pill{{flex:0 0 auto;border:1px solid #a5b78f;background:#f4f8ee;color:#55733f;border-radius:999px;padding:7px 13px;font:600 .7rem 'Cinzel',serif;white-space:nowrap}}
+.underdev-note{{margin-top:8px;font:500 .58rem/1.4 'Noto Serif Bengali',serif;color:#9a7b72;letter-spacing:.1px}}
 
 /* player area */
 .player-shell{{background:linear-gradient(180deg,#7b1524,#5e101b);border:1px solid #d0a058;border-radius:20px;padding:10px;box-shadow:0 12px 28px rgba(76,17,25,.18);position:relative}}
@@ -361,6 +385,8 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
 .client-player-visible{{display:block!important}}
 .playlist-display{{position:relative;background:#f8f0df;border:7px solid #741522;border-radius:18px;min-height:52px;margin:8px 0 20px;padding:10px 18px;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 20px rgba(76,17,25,.12);overflow:hidden}}
 .playlist-display:before{{content:"";position:absolute;inset:5px;background-image:url("{ALPANA_URI}");background-size:150px;background-repeat:no-repeat;background-position:left center;opacity:.28;pointer-events:none}}
+[class*="st-key-tv_playlist_box"],[class*="st-key-songs_playlist_box"]{{background:rgba(116,21,34,.055);border:1px solid rgba(180,122,52,.45);border-radius:14px;padding:12px 14px 14px;margin:8px 0 4px;position:relative;z-index:2}}
+.playlist-control-label{{font:600 .72rem/1.4 'Noto Serif Bengali',serif;color:#8d1828}}
 .playlist-display .playlist-display-text{{position:relative;z-index:1;font:600 .72rem 'Cinzel',serif;letter-spacing:1.6px;color:#8d1828;text-transform:uppercase}}
 
 /* sounds */
@@ -377,6 +403,8 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
 .footer-side.left{{left:0;mask-image:linear-gradient(to right,black 0%,black 45%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 0%,black 45%,transparent 100%)}}
 .footer-side.right{{right:0;mask-image:linear-gradient(to left,black 0%,black 45%,transparent 100%);-webkit-mask-image:linear-gradient(to left,black 0%,black 45%,transparent 100%)}}
 .footer-side img{{width:100%;height:100%;object-fit:cover;object-position:center;opacity:.52;filter:saturate(.88) sepia(.1)}}
+.poster-download-form{{position:absolute;left:28px;top:50%;transform:translateY(-50%);z-index:3;margin:0;padding:0}}.poster-download-trigger{{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border:1px solid #d4a45c;border-radius:999px;background:rgba(116,21,34,.92);color:#fff7e8!important;text-decoration:none!important;font:600 .72rem 'Noto Serif Bengali',serif;box-shadow:0 7px 16px rgba(45,6,12,.28);white-space:nowrap;cursor:pointer}}
+.poster-download-trigger:hover{{background:#8d1828;border-color:#efc77f}}.poster-download-trigger:focus{{outline:none}}
 .footer-content{{position:relative;z-index:2;width:min(760px,90%);text-align:center;color:#fff5e4;background:linear-gradient(90deg,transparent,rgba(83,10,20,.82) 14%,rgba(83,10,20,.9) 50%,rgba(83,10,20,.82) 86%,transparent);padding:12px 22px}}
 .footer-content h2{{font:700 2rem 'Noto Serif Bengali',serif;margin:0 0 4px;color:#fff2d6}}
 .footer-content .sub{{font:500 .78rem 'Noto Serif Bengali',serif;color:#efd5b4}}
@@ -394,8 +422,8 @@ div[data-testid="stButton"]>button:hover{{background:#8d1828!important;border-co
 .pulse-value{{font:700 clamp(1.45rem,3vw,2.2rem)/1.1 'Cinzel',serif;color:var(--red)}}
 .pulse-label{{margin-top:5px;font:600 .82rem 'Noto Serif Bengali',serif;color:var(--muted)}}
 @media(max-width:1000px){{.topbar{{padding:0 12px}}.topnav a{{font-size:.75rem;padding:8px 9px}}.hero-banner{{grid-template-columns:1fr;min-height:520px}}.hero-count{{justify-self:start;margin-top:18px;width:260px}}.feature-cards{{grid-template-columns:repeat(2,minmax(0,1fr))}}.playlist-strip{{grid-template-columns:repeat(3,minmax(0,1fr))}}.community{{grid-template-columns:1fr}}}}
-@media(max-width:680px){{.pulse-grid{{grid-template-columns:1fr}}.topbar{{min-height:58px;align-items:flex-start;padding-top:9px;padding-bottom:9px}}.brand{{font-size:.95rem}}.topnav{{justify-content:flex-end}}.topnav a{{font-size:.68rem;padding:7px 6px}}.hero-banner{{padding:34px 20px 0;min-height:550px}}.hero-title{{font-size:2.55rem}}.hero-count{{width:100%;max-width:290px}}.section-nav{{border-radius:15px;grid-template-columns:repeat(2,1fr)}}.section-nav a{{border-bottom:1px solid rgba(180,122,52,.25)}}.page-section{{padding:16px;border-radius:16px}}.feature-grid{{grid-template-columns:1fr}}.feature-song{{grid-template-columns:110px 1fr}}.playlist-strip{{grid-template-columns:repeat(2,minmax(0,1fr))}}.feature-cards{{grid-template-columns:1fr 1fr;gap:10px}}.feature-card{{min-height:320px;padding:12px}}.community img{{height:170px}}.footer{{min-height:260px;padding:35px 12px 24px}}.footer-side{{width:58%}}.footer-content{{width:96%}}}}
-@media(max-width:430px){{.topnav a{{font-size:.62rem;padding:6px 4px}}.brand-mark{{display:none}}.hero-title{{font-size:2.25rem}}.hero-sub{{font-size:.86rem}}.feature-cards{{grid-template-columns:1fr}}.playlist-strip{{grid-template-columns:1fr 1fr}}.playlist-tile .pname{{font-size:.7rem}}}}
+@media(max-width:680px){{.poster-download-form{{left:12px;top:18px;transform:none}}.poster-download-trigger{{font-size:.64rem;padding:8px 11px}}.pulse-grid{{grid-template-columns:1fr}}.topbar{{min-height:58px;align-items:flex-start;padding-top:9px;padding-bottom:9px}}.brand{{font-size:.95rem;gap:7px}}.brand-logo{{height:34px;max-width:105px}}.topnav{{justify-content:flex-end}}.topnav a{{font-size:.68rem;padding:7px 6px}}.hero-banner{{padding:34px 20px 0;min-height:550px}}.hero-title{{font-size:2.55rem}}.hero-count{{width:100%;max-width:290px}}.section-nav{{border-radius:15px;grid-template-columns:repeat(2,1fr)}}.section-nav a{{border-bottom:1px solid rgba(180,122,52,.25)}}.page-section{{padding:16px;border-radius:16px}}.feature-grid{{grid-template-columns:1fr}}.feature-song{{grid-template-columns:110px 1fr}}.playlist-strip{{grid-template-columns:repeat(2,minmax(0,1fr))}}.feature-cards{{grid-template-columns:1fr 1fr;gap:10px}}.feature-card{{min-height:320px;padding:12px}}.community img{{height:170px}}.footer{{min-height:260px;padding:35px 12px 24px}}.footer-side{{width:58%}}.footer-content{{width:96%}}}}
+@media(max-width:430px){{.topnav a{{font-size:.62rem;padding:6px 4px}}.brand-mark{{display:none}}.brand-logo{{height:30px;max-width:86px}}.hero-title{{font-size:2.25rem}}.hero-sub{{font-size:.86rem}}.feature-cards{{grid-template-columns:1fr}}.playlist-strip{{grid-template-columns:1fr 1fr}}.playlist-tile .pname{{font-size:.7rem}}}}
 </style>""",
 unsafe_allow_html=True,
 )
@@ -505,9 +533,11 @@ def days_to_mahalaya():
 countdown_days = days_to_mahalaya()
 active_map = {"Puja Songs":"songs", "Puja Sound":"sounds", "Live Radio":"radio", "Pujo TV":"tv"}
 
+logo_html = f'<img class="brand-logo" src="{ASSET["logo"]}" alt="বাঙালির উৎসব logo">' if ASSET.get("logo") else '<span class="brand-mark">🌺</span>'
+
 st.markdown(
     f"""<div class="topbar">
-        <a class="brand" target="_self" rel="nofollow" href="?section=songs#songs-player"><span class="brand-mark">🌺</span>বাঙালির উৎসব</a>
+        <a class="brand" target="_self" rel="nofollow" href="?section=songs#songs-player">{logo_html}বাঙালির উৎসব</a>
         <nav class="topnav">
             <a class="{'active' if st.session_state.active_section=='Puja Songs' else ''}" target="_self" rel="nofollow" href="?section=songs#songs-player">হোম</a>
             <a class="{'active' if st.session_state.active_section=='Puja Songs' else ''}" target="_self" rel="nofollow" href="?section=songs#songs-player">পুজোর গান</a>
@@ -521,7 +551,7 @@ st.markdown(
 )
 
 hero_bg = f'<img class="hero-bg" src="{ASSET["hero"]}" alt="" aria-hidden="true">' if ASSET["hero"] else ''
-st.markdown(
+st.html(
     f"""<section class="hero-banner">
         {hero_bg}
         <div class="hero-copy">
@@ -529,8 +559,9 @@ st.markdown(
             <div class="hero-title">বাঙালির উৎসব,<br>বাঙালির গান</div>
             <div class="hero-sub">পুজোর আনন্দ, গান, আড্ডা আর আমাদের সবার — একটা ঠিকানা। কলকাতা থেকে পৃথিবীর যেকোনো প্রান্তে, পুজোর আবহ থাকুক আপনার সঙ্গেই।</div>
             <div class="hero-actions">
-                <a class="hero-btn primary" target="_self" rel="nofollow" href="?section=songs#songs-player">♫ পুজোর গান শুনুন →</a>
-                <a class="hero-btn" target="_self" rel="nofollow" href="?section=radio#radio-player">▣ পুজো রেডিও</a>
+                <a class="hero-btn primary" target="_self" rel="nofollow" href="?section=songs#songs-player">পুজোর গান শুনুন</a>
+                <a class="hero-btn" target="_self" rel="nofollow" href="?section=radio#radio-player">পুজো রেডিও</a>
+                <a class="hero-btn bmc-btn" href="https://buymeacoffee.com/datasciente" target="_blank" rel="noopener noreferrer">☕ Buy me a coffee</a>
             </div>
         </div>
         <div class="hero-count">
@@ -539,7 +570,7 @@ st.markdown(
             <div class="date">১০ অক্টোবর ২০২৬ · মহালয়া</div>
         </div>
     </section>""",
-    unsafe_allow_html=True,
+    unsafe_allow_javascript=True,
 )
 
 st.markdown(
@@ -575,42 +606,35 @@ nav_html = f"""<div class="section-nav" id="player-nav">
 st.markdown(nav_html, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
-# Featured content — compact, proportionate, no large white gaps
+# Featured content + AI DJ — one real Streamlit container so the controls
+# stay visually inside the AI DJ title box on desktop and mobile.
 # -----------------------------------------------------------------------------
 featured_uri = ASSET["featured"]
-st.markdown(
-    f"""<section class="page-section">
-        <div class="section-head"><div><div class="kicker">Featured</div><div class="section-title">পুজোর গান</div><div class="section-desc">শারদীয়ার সেরা গানগুলি নিয়ে আমাদের বিশেষ সংগ্রহ — আগমনী, রবীন্দ্রসঙ্গীত, ঢাক আর পুজোর মুড।</div></div></div>
-        <div class="ornament-rule"></div>
-        <div class="feature-grid">
-            <div class="feature-song">
-                <img class="feature-img" src="{featured_uri}" alt="Puja song featured" />
-                <div>
-                    <div class="kicker">CURATED BENGALI COLLECTION</div>
-                    <div class="feature-title">শারদীয়ার সেরা গানগুলি</div>
-                    <div class="section-desc">আগমনী থেকে বাংলা রক — পুজোর প্রতিটি মুহূর্তের জন্য আলাদা vibe।</div>
-                </div>
-            </div>
-            <div class="ai-box">
-                <div class="kicker">AI DJ</div>
-                <div class="section-title">নিজের মতো পুজোর গান</div>
-                <div class="section-desc">মুড বলুন — AI DJ আপনার vibe-এর সঙ্গে মেলে এমন curated পুজোর playlist খুঁজে দেবে।</div>
-            </div>
-        </div>
-    </section>""",
-    unsafe_allow_html=True,
-)
+with st.container(key="featured_section_container"):
+    st.markdown(
+        '<div class="section-head"><div><div class="kicker">Featured</div><div class="section-title">পুজোর গান</div><div class="section-desc">শারদীয়ার সেরা গানগুলি নিয়ে আমাদের বিশেষ সংগ্রহ — আগমনী, রবীন্দ্রসঙ্গীত, ঢাক আর পুজোর মুড।</div></div></div><div class="ornament-rule"></div>',
+        unsafe_allow_html=True,
+    )
+    feature_col, ai_col = st.columns([1.2, .8], gap="large")
+    with feature_col:
+        st.markdown(
+            f'''<div class="feature-song"><img class="feature-img" src="{featured_uri}" alt="Puja song featured" /><div><div class="kicker">CURATED BENGALI COLLECTION</div><div class="feature-title">শারদীয়ার সেরা গানগুলি</div><div class="section-desc">আগমনী থেকে বাংলা রক — পুজোর প্রতিটি মুহূর্তের জন্য আলাদা vibe।</div></div></div>''',
+            unsafe_allow_html=True,
+        )
+    with ai_col:
+        with st.container(key="ai_dj_box"):
+            st.markdown('<div class="kicker">AI DJ</div><div class="section-title">নিজের মতো পুজোর গান</div><div class="section-desc">মুড বলুন — AI DJ আপনার vibe-এর সঙ্গে মেলে এমন curated পুজোর playlist খুঁজে দেবে।</div>', unsafe_allow_html=True)
+            st.markdown('<div style="height:12px"></div>', unsafe_allow_html=True)
+            ai_col1, ai_col2 = st.columns([4, 1], gap="small")
+            with ai_col1:
+                ai_prompt = st.text_input("AI DJ prompt", placeholder="যেমন: ধুনুচি নাচের গান, বনসাই মুড...", label_visibility="collapsed", key="v2_ai_prompt")
+            with ai_col2:
+                if st.button("✦ AI DJ-কে বলুন", key="ai_btn_v2", use_container_width=True):
+                    if ai_prompt.strip():
+                        st.session_state.ai_result = get_ai_chat_recommendation(ai_prompt)
+                    else:
+                        st.warning("মুডটি লিখুন।")
 
-# AI input is kept outside the decorative HTML so it remains fully functional.
-ai_col1, ai_col2 = st.columns([4, 1])
-with ai_col1:
-    ai_prompt = st.text_input("AI DJ prompt", placeholder="যেমন: ধুনুচি নাচের গান, বনসাই মুড...", label_visibility="collapsed", key="v2_ai_prompt")
-with ai_col2:
-    if st.button("✦ AI DJ-কে বলুন", key="ai_btn_v2", use_container_width=True):
-        if ai_prompt.strip():
-            st.session_state.ai_result = get_ai_chat_recommendation(ai_prompt)
-        else:
-            st.warning("মুডটি লিখুন।")
 if st.session_state.ai_result:
     r = st.session_state.ai_result
     st.markdown(f'<div class="page-section" style="padding:12px 18px;margin-top:10px"><div class="section-desc">✦ {r.get("response","")}</div><div class="kicker">AI ROUTE · {r.get("playlist_name",r.get("category","Bengali Music"))}</div></div>', unsafe_allow_html=True)
@@ -623,6 +647,7 @@ playlist_art = {
     "Bangla Rock": (ASSET["bengaliRock"], "বাংলা রক"),
     "Pujor Gaan": (ASSET["featured"], "পুজোর গান"),
     "Mahalaya": (ASSET["agomoni"], "মহালয়া · আগমনী"),
+    "Bangla Romantic Songs": (ASSET["bengaliRomantic"], "বাংলা প্রেমের গান"),
 }
 playlist_tiles = []
 for name in CURATED_PLAYLISTS:
@@ -638,7 +663,7 @@ with loc_col:
         unsafe_allow_html=True,
     )
     loc = st.text_input("Location", placeholder="আপনার এলাকা / পিন কোড লিখুন", label_visibility="collapsed", key="v2_loc")
-    if st.button("🗺️ আমার পুজোর লোকেশন শেয়ার করুন →", key="v2_loc_btn", use_container_width=True):
+    if st.button("🗺️ আপনার পুজোর লোকেশন শেয়ার করুন →", key="v2_loc_btn", use_container_width=True):
         if loc.strip():
             try:
                 event = publish_location(loc.strip())
@@ -720,7 +745,7 @@ st.markdown('<section class="page-section"><div class="section-head"><div><div c
 # Community strip using the supplied community_puja image
 # -----------------------------------------------------------------------------
 st.markdown(
-    f"""<section class="page-section"><div class="community"><div><div class="kicker">Community</div><div class="section-title">আমাদের কমিউনিটি</div><div class="section-desc">আজ যারা পুজোর গান শুনছেন, রেডিও চালাচ্ছেন বা লোকেশন শেয়ার করছেন — সবাই মিলে তৈরি হোক একটাই ডিজিটাল পুজো আড্ডা।</div><div class="avatar-row"><span class="avatar">BU</span><span class="avatar">PU</span><span class="avatar">DG</span><span class="avatar">AA</span><span class="avatar">+</span><span class="live-pill">● এখন লাইভ</span></div></div><img src="{ASSET["community"]}" alt="Bengali Puja community" /></div></section>""",
+    f"""<section class="page-section"><div class="community"><div><div class="community-head"><div><div class="kicker">Community</div><div class="section-title">আমাদের কমিউনিটি</div></div><span class="live-pill">● এখন লাইভ</span></div><div class="section-desc">আজ যারা পুজোর গান শুনছেন, রেডিও চালাচ্ছেন বা লোকেশন শেয়ার করছেন — সবাই মিলে তৈরি হোক একটাই ডিজিটাল পুজো আড্ডা।</div><div class="underdev-note">This section is still under development. Developers are working on it.</div><div class="avatar-row"><span class="avatar">BU</span><span class="avatar">PU</span><span class="avatar">DG</span><span class="avatar">AA</span><span class="avatar">+</span></div></div><img src="{ASSET["community"]}" alt="Bengali Puja community" /></div></section>""",
     unsafe_allow_html=True,
 )
 
@@ -746,7 +771,7 @@ def deck(playlist_id: str, title: str, component_key: str = "main_deck"):
 .knob-bank{display:grid;grid-template-columns:repeat(2,54px);gap:8px 14px;justify-content:center;margin-top:10px}.knob-wrap{text-align:center}.knob{width:50px;height:50px;border-radius:50%;margin:auto;background:radial-gradient(circle at 32% 28%,#d9c6a6 0,#9e8663 18%,#4d3b29 48%,#17110c 66%,#090706 68%);border:2px solid #9a7047;box-shadow:0 4px 9px #000,inset 0 1px 3px rgba(255,255,255,.22);position:relative;cursor:pointer}.knob:after{content:"";position:absolute;left:50%;top:5px;width:2px;height:15px;background:#24170e;transform:translateX(-50%);box-shadow:0 0 1px #000}.knob-label{margin-top:3px;color:#9f7a51;font:7px Georgia,serif;letter-spacing:1px}
 .lower{margin-top:10px;display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}.brand-plate{text-align:left;color:#c8a275;font:600 9px Georgia,serif;letter-spacing:1.5px}.status{text-align:center;min-height:14px;color:#b89a79;font:8px monospace;letter-spacing:.8px}.power{text-align:right;color:#d5aa69;font:700 8px monospace;letter-spacing:1px}.lamp{display:inline-block;width:7px;height:7px;border-radius:50%;background:#54281a;border:1px solid #8d4d31;vertical-align:middle;margin-right:5px}.playing .lamp{background:#e08b45;box-shadow:0 0 10px rgba(224,139,69,.7)}
 @media(max-width:820px){.console{padding:12px}.stereo{grid-template-columns:1fr}.speaker{min-height:100px;height:100px}.speaker:before{inset:7px;background:repeating-linear-gradient(0deg,#0b0908 0 3px,#2e2118 4px 5px)}.speaker:after{bottom:8px;left:22%;right:22%;padding:3px;font-size:6px}.center{order:2}.speaker.left{order:1}.speaker.right{order:3}.display-row{grid-template-columns:58px minmax(0,1fr) 58px}.meter{height:36px}.album{aspect-ratio:16/7}.transport{gap:5px}.physical{height:36px;min-width:38px;padding:0 7px;font-size:7px}.physical.play{min-width:54px}.knob-bank{grid-template-columns:repeat(4,50px);gap:8px;margin-bottom:2px}.lower{grid-template-columns:1fr;gap:5px;text-align:center}.brand-plate,.power{text-align:center}}
-@media(max-width:430px){.header{flex-direction:column;align-items:flex-start;gap:4px}.console{padding:9px}.speaker{min-height:74px;height:74px}.center{padding:8px}.display-row{grid-template-columns:48px minmax(0,1fr) 48px;gap:6px}.meter{height:32px}.screen{height:66px}.screen-title{font-size:12px}.tuning{height:48px}.album{aspect-ratio:16/6.8}.transport{gap:4px;padding:7px 3px}.physical{height:34px;min-width:34px;padding:0 5px;font-size:6.5px}.physical.play{min-width:49px}.knob-bank{grid-template-columns:repeat(4,44px);gap:5px}.knob{width:42px;height:42px}.knob:after{height:12px}}
+@media(max-width:430px){.header{flex-direction:column;align-items:flex-start;gap:4px}.console{padding:7px}.speaker{min-height:58px;height:58px}.center{padding:6px}.display-row{grid-template-columns:44px minmax(0,1fr) 44px;gap:5px}.meter{height:28px}.screen{height:58px}.screen-title{font-size:11px}.tuning{height:42px}.album{aspect-ratio:16/5.9}.transport{gap:3px;padding:5px 2px}.physical{height:31px;min-width:31px;padding:0 4px;font-size:6px}.physical.play{min-width:45px}.knob-bank{grid-template-columns:repeat(4,38px);gap:4px}.knob{width:36px;height:36px}.knob:after{height:10px}}
 </style></head><body>
 <div class="console" id="console"><div class="grain"></div><div class="vinyl" id="vinyl"><div class="vinyl-label">PUJA</div><div class="vinyl-title" id="vinylTitle">__TITLE__</div></div><div class="header"><span>● <span class="brand">BANGALIR UTSAV</span> · VINTAGE HI-FI CONSOLE</span><span class="model">MODEL 76 · WOODGRAIN STEREO</span></div><div class="stereo"><div class="speaker left"></div><div class="center"><div class="faceplate"><div class="display-row"><div class="meter"><div class="ticks"></div><div class="needle"></div></div><div class="screen"><div class="screen-title" id="title">__TITLE__</div><div class="screen-sub" id="sub">PLAYLIST · READY</div><div class="screen-time"><span id="current">00:00</span> / <span id="duration">--:--</span></div></div><div class="meter"><div class="ticks"></div><div class="needle"></div></div></div><div class="tuning"><div class="freq"><span>FM 88</span><span>92</span><span>96</span><span>100</span><span>104</span><span>108</span></div><div class="scale"></div><div class="tuning-needle"></div></div><div class="album"><div class="yt" id="yt-host"></div><div class="album-caption">DURGAPUJA · BENGALI MUSIC</div></div><div class="transport"><button class="physical" id="prev">⏮ REV</button><button class="physical" id="rewind">◀◀ 10</button><button class="physical play" id="play">▶ PLAY</button><button class="physical stop" id="stop">■ STOP</button><button class="physical" id="forward">10 ▶▶</button><button class="physical" id="next">FWD ⏭</button><button class="physical" id="mute">MUTE</button></div><div class="knob-bank"><div class="knob-wrap"><div class="knob" id="volDown"></div><div class="knob-label">VOL −</div></div><div class="knob-wrap"><div class="knob" id="volUp"></div><div class="knob-label">VOL +</div></div><div class="knob-wrap"><div class="knob" id="prevTrack"></div><div class="knob-label">TRACK ◀</div></div><div class="knob-wrap"><div class="knob" id="nextTrack"></div><div class="knob-label">TRACK ▶</div></div></div></div><div class="lower"><div class="brand-plate">ANALOGUE AUDIO · STEREO RECEIVER</div><div class="status" id="status">READY · PRESS PLAY</div><div class="power"><span class="lamp"></span><span id="powerText">STANDBY</span></div></div></div><div class="speaker right"></div></div></div>
 <script>
@@ -780,7 +805,7 @@ def pujo_tv_deck(playlist_id: str, title: str, component_key: str = "pujo_tv_dec
 const PLAYER_ID='tv',PLAYLIST_ID=__PLAYLIST__,TITLE=__TITLE__;let player=null,ready=false;function notifyPlay(){window.parent.postMessage({source:'bangalir-utsav-player',type:'play',player:PLAYER_ID},'*')}function stopExternal(){if(player){try{player.pauseVideo()}catch(e){}setPlaying(false);setStatus('STOPPED · ANOTHER PLAYER ACTIVE')}}window.addEventListener('message',e=>{const d=e.data;if(d&&d.source==='bangalir-utsav-player'&&d.type==='stop'&&d.player!==PLAYER_ID)stopExternal()});const $=id=>document.getElementById(id),progress=$("progress");function fmt(sec){sec=Math.max(0,Math.floor(sec||0));return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}function setStatus(x){$("status").textContent=x}function setPlaying(v){$("tv").classList.toggle("playing",v);$("play").textContent=v?"❚❚ PAUSE":"▶ PLAY"}function onReady(){if(ready)return;ready=true;player=new YT.Player("yt-player",{width:"100%",height:"100%",playerVars:{playsinline:1,rel:0,modestbranding:1,controls:1},events:{onReady:()=>{player.cuePlaylist({listType:"playlist",list:PLAYLIST_ID,index:0});setStatus("READY · PRESS PLAY");sync()},onStateChange:e=>{if(e.data===1){notifyPlay();setPlaying(true);setStatus("PLAYING · "+TITLE)}else if(e.data===2){setPlaying(false);setStatus("PAUSED · "+TITLE)}else if(e.data===0){setPlaying(false);setStatus("TRACK COMPLETE")}}}})}function boot(){const host=$("yt-host");if(host&&!$("yt-player")){const d=document.createElement("div");d.id="yt-player";host.appendChild(d)}if(window.YT&&window.YT.Player)onReady();else{window.onYouTubeIframeAPIReady=onReady;const tag=document.createElement("script");tag.src="https://www.youtube.com/iframe_api";document.head.appendChild(tag)}}function sync(){if(!player||!ready)return;const cur=player.getCurrentTime()||0,dur=player.getDuration()||0;progress.value=dur?Math.round(cur/dur*1000):0;$("elapsed").textContent=fmt(cur);$("duration").textContent=fmt(dur);const idx=player.getPlaylistIndex();if(idx!=null&&idx>=0)$("now").textContent=TITLE+" · TRACK "+(idx+1)}$("play").onclick=()=>{if(!player)return;if(player.getPlayerState()===1)player.pauseVideo();else{notifyPlay();player.playVideo()}};$("stop").onclick=()=>{if(player){player.pauseVideo();player.seekTo(0,true);setPlaying(false);setStatus("STOPPED · 00:00")}};$("rewind").onclick=()=>{if(player)player.seekTo(Math.max(0,(player.getCurrentTime()||0)-10),true)};$("forward").onclick=()=>{if(player)player.seekTo(Math.min(player.getDuration()||0,(player.getCurrentTime()||0)+10),true)};$("prev").onclick=()=>{if(player)player.previousVideo()};$("next").onclick=()=>{if(player)player.nextVideo()};$("mute").onclick=()=>{if(player){const m=player.isMuted();m?player.unMute():player.mute();setStatus(m?"SOUND ON":"MUTED")}};progress.addEventListener("input",()=>{if(player){const dur=player.getDuration()||0;player.seekTo(dur*(Number(progress.value)/1000),true)}});setInterval(sync,500);boot();
 </script></body></html>"""
     html=html.replace('__PLAYLIST__',playlist_json).replace('__TITLE__',title_json)
-    components.html(html, height=690, scrolling=False)
+    components.html(html, height=820, scrolling=False)
 
 
 
@@ -794,7 +819,10 @@ with st.container(key="client_player_songs"):
     names = list(CURATED_PLAYLISTS)
     if st.session_state.active_playlist not in names:
         st.session_state.active_playlist = names[0]
-    selected = st.selectbox("Curated playlist", names, index=names.index(st.session_state.active_playlist), label_visibility="collapsed", key="v4_playlist_select")
+    with st.container(key="songs_playlist_box"):
+        st.markdown('<div class="playlist-control-label">পুজোর গান playlist · একটি playlist বেছে নিন</div>', unsafe_allow_html=True)
+        st.markdown('<div style="height:8px"></div>', unsafe_allow_html=True)
+        selected = st.selectbox("Curated playlist", names, index=names.index(st.session_state.active_playlist), label_visibility="collapsed", key="v4_playlist_select")
     st.session_state.active_playlist = selected
     st.markdown(f'<div class="playlist-display"><div class="playlist-display-text">{CURATED_PLAYLISTS[selected][0]}</div></div>', unsafe_allow_html=True)
     st.markdown('<div style="height:12px"></div>', unsafe_allow_html=True)
@@ -807,7 +835,10 @@ with st.container(key="client_player_tv"):
     names = list(PUJO_TV_PLAYLISTS)
     if st.session_state.active_tv_playlist not in names:
         st.session_state.active_tv_playlist = names[0]
-    selected = st.selectbox("Pujo TV playlist", names, index=names.index(st.session_state.active_tv_playlist), label_visibility="collapsed", key="v4_tv_select")
+    with st.container(key="tv_playlist_box"):
+        st.markdown('<div class="playlist-control-label">পুজোর TV playlist · একটি অনুষ্ঠান বেছে নিন</div>', unsafe_allow_html=True)
+        st.markdown('<div style="height:8px"></div>', unsafe_allow_html=True)
+        selected = st.selectbox("Pujo TV playlist", names, index=names.index(st.session_state.active_tv_playlist), label_visibility="collapsed", key="v4_tv_select")
     st.session_state.active_tv_playlist = selected
     st.markdown(f'<div class="playlist-display"><div class="playlist-display-text">{PUJO_TV_PLAYLISTS[selected][0]}</div></div>', unsafe_allow_html=True)
     pujo_tv_deck(PUJO_TV_PLAYLISTS[selected][1], PUJO_TV_PLAYLISTS[selected][0], component_key="v4_tv_deck")
@@ -836,12 +867,12 @@ with st.container(key="client_player_sounds"):
         tracks.append({"icon":icon,"name":bn,"label":en,"desc":desc,"src":src,"available":bool(src)})
     mixer_json=json.dumps(tracks)
     mixer_html="""<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
-    *{box-sizing:border-box}body{margin:0;background:transparent;color:#fff7e8;font-family:Georgia,serif}.mixer{background:linear-gradient(180deg,#741522,#5b0d18);border:1px solid #d0a058;border-radius:16px;padding:16px;position:relative;overflow:hidden}.mixer:before{content:"";position:absolute;inset:7px;border:1px solid rgba(238,200,129,.3);border-radius:12px;background:radial-gradient(circle at 15% 15%,rgba(255,220,170,.1),transparent 20%),radial-gradient(circle at 85% 85%,rgba(255,220,170,.08),transparent 22%);pointer-events:none}.top{position:relative;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:4px 4px 12px;border-bottom:1px solid rgba(231,188,109,.35)}.title{font-size:18px;font-weight:700}.sub{font-size:11px;color:#e6bf82;letter-spacing:1px}.master{display:flex;gap:10px;align-items:center;font-size:11px}.master input{width:120px}.grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.channel{background:linear-gradient(145deg,#7b1928,#55101a);border:1px solid rgba(224,178,96,.52);border-radius:12px;padding:12px;min-height:190px;box-shadow:inset 0 0 22px rgba(0,0,0,.16)}.head{display:flex;align-items:center;gap:8px}.icon{font-size:25px}.name{font-size:15px;font-weight:700}.label{font-size:9px;letter-spacing:1.5px;color:#e6bf82}.led{margin-left:auto;width:8px;height:8px;border-radius:50%;background:#4c1b22;border:1px solid #b8793c}.led.on{background:#f0b35f;box-shadow:0 0 10px #f0b35f}.desc{font-size:10px;color:#f0d5bb;line-height:1.45;margin:8px 0 9px;min-height:29px}.controls{display:flex;gap:6px}.btn{flex:1;height:30px;border-radius:6px;border:1px solid #b9854a;background:linear-gradient(#8c2b35,#531019);color:#fff0d2;font-size:9px;cursor:pointer}.btn:disabled{opacity:.45;cursor:not-allowed}.meter{height:5px;background:#3e1018;border:1px solid #8a4b35;border-radius:5px;margin:10px 0 7px;overflow:hidden}.meter span{display:block;height:100%;width:12%;background:#e3ad61;transition:width .12s}.vol{display:flex;gap:7px;align-items:center;font-size:9px;color:#e4c28e}.vol input{flex:1}.loop{font-size:9px;color:#e4c28e;margin-top:5px;display:block}.status{position:relative;margin-top:10px;border-top:1px solid rgba(231,188,109,.25);padding-top:9px;text-align:center;font-size:10px;color:#e4c28e}.stop{height:34px;padding:0 14px;border-radius:999px;border:1px solid #d5a25b;background:#f0c36d;color:#5d1018;font-weight:700;cursor:pointer}@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:470px){.grid{grid-template-columns:1fr}.master{flex-wrap:wrap}}
+    *{box-sizing:border-box}body{margin:0;background:transparent;color:#fff7e8;font-family:Georgia,serif}.mixer{background:linear-gradient(180deg,#741522,#5b0d18);border:1px solid #d0a058;border-radius:16px;padding:16px;position:relative;overflow:hidden}.mixer:before{content:"";position:absolute;inset:7px;border:1px solid rgba(238,200,129,.3);border-radius:12px;background:radial-gradient(circle at 15% 15%,rgba(255,220,170,.1),transparent 20%),radial-gradient(circle at 85% 85%,rgba(255,220,170,.08),transparent 22%);pointer-events:none}.top{position:relative;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:4px 4px 12px;border-bottom:1px solid rgba(231,188,109,.35)}.title{font-size:18px;font-weight:700}.sub{font-size:11px;color:#e6bf82;letter-spacing:1px}.master{display:flex;gap:10px;align-items:center;font-size:11px}.master input{width:120px}.grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.channel{background:linear-gradient(145deg,#7b1928,#55101a);border:1px solid rgba(224,178,96,.52);border-radius:12px;padding:12px;min-height:190px;box-shadow:inset 0 0 22px rgba(0,0,0,.16)}.head{display:flex;align-items:center;gap:8px}.icon{font-size:25px}.name{font-size:15px;font-weight:700}.label{font-size:9px;letter-spacing:1.5px;color:#e6bf82}.led{margin-left:auto;width:8px;height:8px;border-radius:50%;background:#4c1b22;border:1px solid #b8793c}.led.on{background:#f0b35f;box-shadow:0 0 10px #f0b35f}.desc{font-size:10px;color:#f0d5bb;line-height:1.45;margin:8px 0 9px;min-height:29px}.controls{display:flex;gap:6px}.btn{flex:1;height:30px;border-radius:6px;border:1px solid #b9854a;background:linear-gradient(#8c2b35,#531019);color:#fff0d2;font-size:9px;cursor:pointer}.btn:disabled{opacity:.45;cursor:not-allowed}.meter{height:5px;background:#3e1018;border:1px solid #8a4b35;border-radius:5px;margin:10px 0 7px;overflow:hidden}.meter span{display:block;height:100%;width:12%;background:#e3ad61;transition:width .12s}.vol{display:flex;gap:7px;align-items:center;font-size:9px;color:#e4c28e}.vol input{flex:1}.loop{font-size:9px;color:#e4c28e;margin-top:5px;display:block}.status{position:relative;margin-top:10px;border-top:1px solid rgba(231,188,109,.25);padding-top:9px;text-align:center;font-size:10px;color:#e4c28e}.stop{height:34px;padding:0 14px;border-radius:999px;border:1px solid #d5a25b;background:#f0c36d;color:#5d1018;font-weight:700;cursor:pointer}@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:470px){.grid{grid-template-columns:1fr}.master{flex-wrap:wrap;gap:6px}.mixer{padding:10px}.channel{min-height:150px;padding:9px}.desc{min-height:0;margin:5px 0 7px}.controls{gap:4px}.btn{height:28px}.status{margin-top:7px;padding-top:7px}}
     </style></head><body><div class="mixer"><div class="top"><div><div class="title">পুজোর সাউন্ড · Sound Mixer</div><div class="sub">MIX YOUR OWN PUJA ATMOSPHERE</div></div><div class="master">MASTER <input id="master" type="range" min="0" max="1" step="0.01" value="0.72"><button id="stop-all" class="stop">STOP ALL</button></div></div><div id="grid" class="grid"></div><div id="status" class="status">READY · ADD LICENSED FILES TO assets/sounds/ TO ENABLE A CHANNEL</div></div><script>
     const tracks=__TRACKS__,grid=document.getElementById('grid'),master=document.getElementById('master'),status=document.getElementById('status'),audios=[];tracks.forEach(t=>{const c=document.createElement('div');c.className='channel';c.innerHTML=`<div class="head"><span class="icon">${t.icon}</span><div><div class="name">${t.name}</div><div class="label">${t.label}</div></div><span class="led"></span></div><div class="desc">${t.desc}</div><div class="controls"><button class="btn play" ${t.available?'':'disabled'}>${t.available?'▶ PLAY':'OFF'}</button><button class="btn mute" ${t.available?'':'disabled'}>MUTE</button></div><div class="meter"><span></span></div><div class="vol"><span>VOL</span><input class="slider" type="range" min="0" max="1" step="0.01" value="0.72" ${t.available?'':'disabled'}></div><label class="loop"><input type="checkbox" class="loopbox" ${t.available?'checked':'disabled'}> LOOP</label>`;grid.appendChild(c);const a=new Audio();a.loop=true;a.preload='auto';a.src=t.src||'';a.volume=.72;audios.push(a);const play=c.querySelector('.play'),mute=c.querySelector('.mute'),slider=c.querySelector('.slider'),loop=c.querySelector('.loopbox'),led=c.querySelector('.led'),meter=c.querySelector('.meter span');play.onclick=async()=>{if(!t.available)return;if(a.paused){try{await a.play();play.textContent='❚❚';led.classList.add('on');status.textContent=t.label+' · PLAYING'}catch(e){status.textContent='BROWSER BLOCKED AUDIO · TAP PLAY AGAIN'}}else{a.pause();play.textContent='▶';led.classList.remove('on')}};mute.onclick=()=>{a.muted=!a.muted;mute.textContent=a.muted?'UNMUTE':'MUTE'};slider.oninput=()=>a.volume=Number(slider.value)*Number(master.value);loop.onchange=()=>a.loop=loop.checked;setInterval(()=>meter.style.width=a.paused?'12%':(18+Math.random()*78)+'%',180)});master.oninput=()=>audios.forEach((a,i)=>{const s=grid.children[i]?.querySelector('.slider');if(s)a.volume=Number(s.value)*Number(master.value)});document.getElementById('stop-all').onclick=()=>{audios.forEach((a,i)=>{a.pause();a.currentTime=0;const c=grid.children[i];if(c){const t=tracks[i];c.querySelector('.play').textContent=t.available?'▶':'OFF';c.querySelector('.led').classList.remove('on')}});status.textContent='ALL CHANNELS STOPPED'};
     </script></body></html>""".replace('__TRACKS__',mixer_json)
     st.markdown('<section class="page-section sound-shell"><div class="kicker">Puja Ambience · Sound Library</div><div class="section-title">পুজোর সাউন্ড</div><div class="section-desc">আপনার sound library-এর ফাইলগুলি <code>assets/sounds/</code>-এ যোগ করলে প্রতিটি channel সক্রিয় হবে।</div>', unsafe_allow_html=True)
-    components.html(mixer_html, height=690, scrolling=False)
+    components.html(mixer_html, height=max(820, 220 + len(tracks) * 190), scrolling=False)
     st.markdown('</section>', unsafe_allow_html=True)
 # Client-side section switcher. It changes only visibility and URL state; no reload and no new tab.
 st.html("""<script>
@@ -930,12 +961,65 @@ st.html("""<script>
 </script>""", unsafe_allow_javascript=True)
 
 # -----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# Poster download dialog
+# -----------------------------------------------------------------------------
+POSTER_PATH = BASE_DIR / "assets/site_qr.png"
+
+def _close_poster_dialog():
+    try:
+        st.query_params.pop("poster", None)
+    except Exception:
+        pass
+
+@st.dialog("পোস্টার ডাউনলোড করুন", width="medium", dismissible=True, on_dismiss=_close_poster_dialog)
+def _show_poster_dialog():
+    st.markdown(
+        "<div style='text-align:center;color:#741522;font-family:\"Noto Serif Bengali\",serif;font-size:1.05rem;font-weight:700;margin-bottom:10px;'>বাঙালির উৎসব · পোস্টার</div>",
+        unsafe_allow_html=True,
+    )
+    if POSTER_PATH.exists():
+        st.image(str(POSTER_PATH), use_container_width=True)
+        with open(POSTER_PATH, "rb") as poster_file:
+            st.download_button(
+                "⬇ পোস্টার ডাউনলোড করুন",
+                data=poster_file.read(),
+                file_name="site_qr.png",
+                mime="image/png",
+                key="site_qr_download",
+                type="primary",
+                width="stretch",
+                on_click="ignore",
+            )
+    else:
+        st.markdown(
+            "<div style='padding:42px 18px;border:1px dashed #b47a34;border-radius:14px;background:#f8f0df;text-align:center;color:#741522;font-family:\"Noto Serif Bengali\",serif;'>"
+            '<div style="font-size:2rem;">🖼️</div>'
+            '<div style="font-weight:700;margin-top:8px;">site_qr.png</div>'
+            '<div style="font-size:.78rem;color:#795f57;margin-top:6px;">এই placeholder-এর জায়গায় assets/site_qr.png ফাইলটি যোগ করুন।</div>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+        st.info("Poster image is not added yet. The popup is ready; add assets/site_qr.png later.")
+
+    st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+    if st.button("✕ বন্ধ করুন", key="close_poster_dialog", type="secondary", width="stretch"):
+        _close_poster_dialog()
+        st.rerun()
+
+if st.query_params.get("poster") == "1":
+    _show_poster_dialog()
+
 # Footer + optional panels
 # -----------------------------------------------------------------------------
 st.markdown(
     f"""<footer class="footer">
         <div class="footer-side left"><img src="{ASSET["footer_left"]}" alt="Diya footer decoration"></div>
         <div class="footer-side right"><img src="{ASSET["footer_right"]}" alt="Dhaak footer decoration"></div>
+        <form class="poster-download-form" method="get" action="" onsubmit="this.querySelector('button').disabled=true;">
+            <input type="hidden" name="poster" value="1">
+            <button class="poster-download-trigger" type="submit">পোস্টার ডাউনলোড করুন</button>
+        </form>
         <div class="footer-content">
             <div class="kicker" style="color:#e7be76">SHARODIYA SUBHECHHA</div>
             <h2>শারদীয় শুভেচ্ছা</h2>

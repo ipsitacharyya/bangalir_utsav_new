@@ -1,4 +1,14 @@
 {
+  "Mahalaya": {
+    "title_bn": "মহালয়া · Mahalaya",
+    "playlist_id": "PLe9aEHPEmPds",
+    "description": "Mahalaya and Agamani ambience for the early festive season."
+  },
+  "Pujor Gaan": {
+    "title_bn": "পুজোর গান · Pujor Gaan",
+    "playlist_id": "PLBI0x1hR947U",
+    "description": "A dedicated Durga Puja song selection for the main festive deck."
+  },
   "Rabindra Sangeet": {
     "title_bn": "রবীন্দ্রসঙ্গীত · Rabindra Sangeet",
     "playlist_id": "PLdPc6Zh7RXuI",
@@ -19,14 +29,10 @@
     "playlist_id": "PLdM1f1Ja3FfQ",
     "description": "Bengali rock for high-energy evenings and pandal sessions."
   },
-  "Pujor Gaan": {
-    "title_bn": "পুজোর গান · Pujor Gaan",
-    "playlist_id": "PLBI0x1hR947U",
-    "description": "A dedicated Durga Puja song selection for the main festive deck."
-  },
-  "Mahalaya": {
-    "title_bn": "মহালয়া · Mahalaya",
-    "playlist_id": "PLe9aEHPEmPds",
-    "description": "Mahalaya and Agamani ambience for the early festive season."
+  "Bangla Romantic Songs": {
+    "title_bn": "বাংলা প্রেমের গান · Bangla Romantic Songs",
+    "playlist_id": "PLLbHmxfk1F_4",
+    "description": "Bangla Romantic Songs curated for your very romantic pujo moments."
   }
+
 }

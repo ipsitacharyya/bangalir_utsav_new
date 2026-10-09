@@ -1,8 +1,8 @@
-# Bangalir Utsav — Puja Experience redesign
+# বাঙালির উৎসব, বাঙালির গান
 
-This version keeps the existing functional foundation (Puja Songs, Pujo TV, Live Radio, Puja Sound section, Pushpanjali, countdown, location sharing, song requests, Supabase persistence, AI DJ and footer-linked panels) while applying the locked Bengali-first cream / deep-maroon / antique-gold redesign.
+বাঙালীর দুর্গা পূজার ভার্চুয়াল সঙ্গী। শুনুন রেডিও, পুজোর গান, ভার্চুয়াল পুজো আড্ডা আরও অনেক কিছু।
 
-## What changed in this design pass
+🌸 আপনার দুর্গাপুজোকে আরও আনন্দময় করে তুলুন!
 
 * The full homepage is rendered in one long page instead of swapping out the rest of the page when one media section is selected.
 * Main navigation uses same-tab `#hash` links with `target="\_self"`. Clicking Puja Songs / Pujo TV / Live Radio / Puja Sound scrolls to the real functional player section in the same tab.
