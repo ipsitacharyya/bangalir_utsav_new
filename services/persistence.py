@@ -19,7 +19,7 @@ LOCATION_RPC = "record_location"
 
 
 class PersistenceError(RuntimeError):
-    """Raised when Supabase is configured but a database operation fails."""
+    pass
 
 
 def _load_project_secret_file():
@@ -44,29 +44,24 @@ def _load_project_secret_file():
 
 
 def secret(key, default=""):
-    # 1) Streamlit's real secrets.production.toml / Streamlit Cloud Secrets
+    # 1. Try Streamlit Cloud secrets (or local .streamlit/secrets.toml)
     try:
-        value = st.secrets.get(key, None)
-        if value not in (None, ""):
-            return value
+        if hasattr(st, "secrets") and key in st.secrets:
+            val = st.secrets[key]
+            if val not in (None, ""):
+                return str(val).strip()
     except Exception:
         pass
 
-    # 2) Environment variables (useful for servers/containers)
-    value = os.environ.get(key)
-    if value not in (None, ""):
-        return value
-
-    # 3) Backward-compatible project fallback requested for this deployment
-    value = _load_project_secret_file().get(key)
-    if value not in (None, ""):
-        return value
+    # 2. Try environment variables
+    val = os.environ.get(key)
+    if val not in (None, ""):
+        return str(val).strip()
 
     return default
 
-
 def get_base_url():
-    url = str(secret("SUPABASE_URL", "")).strip()
+    url = secret("SUPABASE_URL", "")
     if url.endswith("/rest/v1/"):
         url = url[:-9]
     elif url.endswith("/rest/v1"):
