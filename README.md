@@ -5,11 +5,11 @@
 🌸 আপনার দুর্গাপুজোকে আরও আনন্দময় করে তুলুন!
 
 * The full homepage is rendered in one long page instead of swapping out the rest of the page when one media section is selected.
-* Main navigation uses same-tab `#hash` links with `target="\_self"`. Clicking Puja Songs / Pujo TV / Live Radio / Puja Sound scrolls to the real functional player section in the same tab.
+* Main navigation uses same-tab `#hash` links with `target="\\\_self"`. Clicking Puja Songs / Pujo TV / Live Radio / Puja Sound scrolls to the real functional player section in the same tab.
 * The top and secondary Mahalaya countdowns are Bengali and use the existing Noto Serif Bengali Google font.
 * The content container is widened so large screens use the page width instead of leaving excessive side whitespace.
-* Small Bengali-style alpana corner ornaments were added as a lightweight SVG: `assets/decorations/alpana\_corner.svg`.
-* The footer uses `footer\_diya.PNG` mirrored on the left and `footer\_dhak.PNG` on the right so the two side images balance symmetrically.
+* Small Bengali-style alpana corner ornaments were added as a lightweight SVG: `assets/decorations/alpana\\\_corner.svg`.
+* The footer uses `footer\\\_diya.PNG` mirrored on the left and `footer\\\_dhak.PNG` on the right so the two side images balance symmetrically.
 * The retro players keep their existing controls and behavior, with their outer palette aligned to the page's maroon / brass / cream visual language.
 * Puja Sound remains safe with an empty `assets/sounds/` directory. Adding the sound files later does not require changing the page structure.
 
@@ -61,3 +61,4 @@ The sound folder may remain empty while the website is being designed.
 
 Test Database: test@bangalirutsav123
 
+Developed by Ipsit Acharyya
