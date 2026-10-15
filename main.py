@@ -1,17 +1,15 @@
 import base64
-import os
+import importlib
 import json
-from datetime import datetime, date
-from pathlib import Path
-
-import base64
+import logging
 import os
 import sys
-import json
+import time
+import traceback
 from datetime import datetime, date
 from pathlib import Path
 
-# Fix sys.path for Streamlit Cloud deployment root resolution
+# Make sure the project root is importable on Streamlit Cloud.
 BASE_DIR = Path(__file__).resolve().parent
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
@@ -19,18 +17,70 @@ if str(BASE_DIR) not in sys.path:
 import pandas as pd
 import streamlit as st
 import streamlit.components.v1 as components
-from ai_backend import get_ai_chat_recommendation, PLAYLISTS
-from services.persistence import (
-    get_pushpanjali_count,
-    increment_pushpanjali,
-    publish_location,
-    get_location_participant_count,
-    get_unique_location_count,
-    get_latest_location_event,
-    submit_song_request,
-    PersistenceError,
-    supabase_enabled,
+
+_log = logging.getLogger("bangalir_utsav")
+
+_PERSISTENCE_NAMES = (
+    "get_pushpanjali_count",
+    "increment_pushpanjali",
+    "publish_location",
+    "get_location_participant_count",
+    "get_unique_location_count",
+    "get_latest_location_event",
+    "submit_song_request",
+    "PersistenceError",
+    "supabase_enabled",
 )
+
+
+def _load_local_modules(attempts=3):
+    """Import the project's own modules, retrying on a cold-start import race.
+
+    When a sleeping Streamlit Cloud app wakes up, the first script run can see a
+    half-initialised or stale copy of ``services.persistence`` and raise
+    ImportError, even though the very next run works. Retrying with a clean
+    module cache removes that failure; if it still fails, the missing names are
+    written to the app logs (Manage app) instead of being redacted.
+    """
+    last_exc = None
+    for attempt in range(1, attempts + 1):
+        try:
+            backend = importlib.import_module("ai_backend")
+            persistence = importlib.import_module("services.persistence")
+            missing = [n for n in _PERSISTENCE_NAMES if not hasattr(persistence, n)]
+            missing += [n for n in ("get_ai_chat_recommendation", "PLAYLISTS") if not hasattr(backend, n)]
+            if missing:
+                raise ImportError(f"Missing names after import: {missing}")
+            return backend, persistence
+        except ImportError as exc:
+            last_exc = exc
+            print(f"[bangalir-utsav] import attempt {attempt}/{attempts} failed: {exc!r}", file=sys.stderr, flush=True)
+            traceback.print_exc()
+            for name in [m for m in list(sys.modules) if m == "ai_backend" or m == "services" or m.startswith("services.")]:
+                sys.modules.pop(name, None)
+            importlib.invalidate_caches()
+            time.sleep(0.6 * attempt)
+    raise last_exc
+
+
+try:
+    _backend, _persistence = _load_local_modules()
+except ImportError:
+    st.set_page_config(page_title="বাঙালির উৎসব", layout="wide")
+    st.info("🌸 সাইটটি এখন প্রস্তুত হচ্ছে — কয়েক সেকেন্ড পরে পেজটি রিফ্রেশ করুন। / The site is getting ready — please refresh in a few seconds.")
+    st.stop()
+
+get_ai_chat_recommendation = _backend.get_ai_chat_recommendation
+PLAYLISTS = _backend.PLAYLISTS
+get_pushpanjali_count = _persistence.get_pushpanjali_count
+increment_pushpanjali = _persistence.increment_pushpanjali
+publish_location = _persistence.publish_location
+get_location_participant_count = _persistence.get_location_participant_count
+get_unique_location_count = _persistence.get_unique_location_count
+get_latest_location_event = _persistence.get_latest_location_event
+submit_song_request = _persistence.submit_song_request
+PersistenceError = _persistence.PersistenceError
+supabase_enabled = _persistence.supabase_enabled
 
 st.set_page_config(
     page_title="বাঙালির উৎসব, বাঙালির গান",
